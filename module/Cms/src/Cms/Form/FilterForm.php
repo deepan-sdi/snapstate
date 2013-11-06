@@ -117,6 +117,26 @@ class FilterForm extends Form
             )
         ));
 		
+		$this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'approvalStatus',
+            'options' => array(
+                'value_options' => array(
+                    '2' => 'Select Approval Status',
+                    '1' => 'Approved',
+                    '0' => 'Pending'
+                ),
+				'attributes' => array(
+	                'value' => '2'
+	            )
+            )
+        ));
+		
+		$this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'categoryFilter'
+        ));
+		
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(

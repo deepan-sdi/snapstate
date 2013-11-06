@@ -845,6 +845,11 @@
 			$('#view_approved_user_tr').show();
 			$('#view_approved_date_tr').show();
 		}
+		if($.trim(tags) != '') {
+			$('#view_tags_tr').show();
+		} else {
+			$('#view_tags_tr').hide();
+		}
 		$('#innerViewButton').click();
 	}
 	

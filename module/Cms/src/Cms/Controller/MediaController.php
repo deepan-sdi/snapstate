@@ -283,6 +283,16 @@ class MediaController extends AbstractActionController
 		$collection	= $conn->snapstate->tags;
 		$collection->remove(array('_id' => new \MongoId($id)));
 	}
+	/***********************************
+	 *	Method: deleteMediaTagsRecords	
+	 *  Module: To Delete Media Tag 	
+	 **********************************/
+	
+	public function deleteMediaTagsRecords($id) {
+		$conn		= $this->connect();
+		$collection	= $conn->snapstate->media_tags;
+		$collection->remove(array('tag_id' => (string)$id));
+	}
 	/**********************************
 	 *	Method: listMediaCategory      
 	 *  Module: To List Media Category 
@@ -359,7 +369,7 @@ class MediaController extends AbstractActionController
 		$document	= array('media_title'		=> trim($formData['media_title']), 
 							'media_url'			=> trim($formData['media_url']),
 							'media_category'	=> $formData['media_category'],
-							'media_description'	=> trim(addslashes($formData['media_description'])), 
+							'media_description'	=> trim($formData['media_description']), 
 							'media_approved'	=> $formData['media_approved'],
 							'media_status'		=> $formData['media_status'],
 							'user_id'			=> '5267a1b88ead0eab15000000',
@@ -492,12 +502,33 @@ class MediaController extends AbstractActionController
 		$userSession	= new Container('user');
 		$listingSession = new Container('listing');
 		
-		$query	= array();
+		$query				= array();
+		$categoryCollection	= $conn->snapstate->categories;
+		$query				= array('category_status' => '1');
+		$cursor				= $categoryCollection->find($query);
+		$categoryArray		= array();
+		
+		while($cursor->hasNext())
+		{
+			$categoryArray[]	= $cursor->getNext();
+		}
+		if(count($categoryArray) > 0) {
+			foreach($categoryArray as $key => $value) {
+				$categoryIdArray[]	= (string)$value['_id'];
+			}
+			$query	= array('media_category' => array('$in' => $categoryIdArray));
+		}
 		if($listingSession->offsetExists('status') && $listingSession->status != '') {
 			$query['media_status']	= $listingSession->status;
 		}
 		if($listingSession->offsetExists('keyword') && $listingSession->keyword != '') {
-			$query['media_title']	= 	new \MongoRegex('/' . preg_quote(trim($listingSession->keyword)) . '/i');
+			$query[$listingSession->field]	= 	new \MongoRegex('/' . preg_quote(trim($listingSession->keyword)) . '/i');
+		}
+		if($listingSession->offsetExists('approval') && $listingSession->approval != '') {
+			$query['media_approved']= $listingSession->approval;
+		}
+		if($listingSession->offsetExists('category') && $listingSession->category != '') {
+			$query['media_category']= $listingSession->category;
 		}
 		if($listingSession->offsetExists('sortBy') && $listingSession->offsetExists('sortType') && $listingSession->sortType == 1) {
 			$sort	= array($listingSession->sortBy => 1);
@@ -547,10 +578,11 @@ class MediaController extends AbstractActionController
 	public function listMediaTagsById($mediaIdArray) {
 		$conn		= $this->connect();
 		$collection	= $conn->snapstate->media_tags;
-		$results	= $collection->find(array('_id' => new \MongoId($id)));
+		$query		= array('media_id' => array('$in' => $mediaIdArray));
+		$results	= $collection->find($query);
 		while($results->hasNext())
 		{
-			$resultArray	= $results->getNext();
+			$resultArray[]	= $results->getNext();
 		}
 		if(isset($resultArray)) {
 			return $resultArray;
@@ -558,7 +590,16 @@ class MediaController extends AbstractActionController
 			return 0;
 		}
 	}
+	/***************************************
+	 *	Method: deleteVideosByCategory      
+	 *  Module: To Delete Category  		
+	 **************************************/
 	
+	public function deleteVideosByCategory($id) {
+		$conn		= $this->connect();
+		$collection	= $conn->snapstate->media;
+		$collection->remove(array('media_category' => (string)$id));
+	}
 	/*******************************
 	 *	Action: create-category     
 	 *  Module: Manage Media        
@@ -637,6 +678,7 @@ class MediaController extends AbstractActionController
 			$createCategoryForm->get('category_name')->setAttribute('value', $category['category_name']);
 			$createCategoryForm->get('category_status')->setAttribute('value', $category['category_status']);
 		}
+		$createCategoryForm->get('submit')->setAttribute('value', 'Save Changes');
 		$request 		= $this->getRequest();
 		$message		= '';
 		$errorMessage	= '';
@@ -803,7 +845,7 @@ class MediaController extends AbstractActionController
             return $this->redirect()->toRoute('cms', array('controller' => 'media', 'action' => 'list-category'));
         }
         $this->deleteCategory($id);
-		//$this->deleteVideosByCategory($id);	// Need to delete the categoy's media
+		$this->deleteVideosByCategory($id);
         return $this->getResponse();
     }
 	/*******************************
@@ -885,6 +927,7 @@ class MediaController extends AbstractActionController
 			$createTagForm->get('tag_name')->setAttribute('value', $tag['tag_name']);
 			$createTagForm->get('tag_status')->setAttribute('value', $tag['tag_status']);
 		}
+		$createTagForm->get('submit')->setAttribute('value', 'Save Changes');
 		$request 		= $this->getRequest();
 		$message		= '';
 		$errorMessage	= '';
@@ -1051,7 +1094,7 @@ class MediaController extends AbstractActionController
             return $this->redirect()->toRoute('cms', array('controller' => 'media', 'action' => 'list-tag'));
         }
         $this->deleteTag($id);
-		//$this->deleteUsersByGroup($id);	// remove the videos from media_tags table
+		$this->deleteMediaTagsRecords($id);
         return $this->getResponse();
     }
 	/*******************************
@@ -1160,8 +1203,8 @@ class MediaController extends AbstractActionController
 			$createMediaForm->get('media_approved')->setAttribute('value', $media['media_approved']);
 			$createMediaForm->get('media_status')->setAttribute('value', $media['media_status']);
 			$createMediaForm->get('approvedDate')->setAttribute('value', $media['date_approved']);
-			
 		}
+		$createMediaForm->get('submit')->setAttribute('value', 'Save Changes');
 		//	Media creation goes here
 		if ($request->isPost()) {
 			$formPostData	= $request->getPost();
@@ -1234,16 +1277,31 @@ class MediaController extends AbstractActionController
 		if ($request->isPost()) {
 			$filterForm->setData($request->getPost());
 			$formData	= $request->getPost();
-			
+			//	Status
 			if(isset($formData['selectStatus']) && $formData['selectStatus'] != 2)
 				$listingSession->status	= $formData['selectStatus'];
 			else
 				$listingSession->status	= '';
-			
+			//	Keyword
 			if(isset($formData['keyword']) && $formData['keyword'] != '')
 				$listingSession->keyword	= $formData['keyword'];
 			else
 				$listingSession->keyword	= '';
+			//	Approval
+			if(isset($formData['approvalStatus']) && $formData['approvalStatus'] != '2')
+				$listingSession->approval	= $formData['approvalStatus'];
+			else
+				$listingSession->approval	= '';
+			//category
+			if(isset($formData['categoryFilter']) && $formData['categoryFilter'] != '0')
+				$listingSession->category	= $formData['categoryFilter'];
+			else
+				$listingSession->category	= '';
+			//	Field
+			if(isset($formData['selectOption']) && $formData['selectOption'] != '')
+				$listingSession->field	= $formData['selectOption'];
+			else
+				$listingSession->field	= '';
 		}
 		
 		$message	= '';
@@ -1255,10 +1313,12 @@ class MediaController extends AbstractActionController
 		else if($message == '')
 			$message	= '';
 		
+		$categoryArray	= $this->listMediaCategory();
 		return new ViewModel(array(
 			'userObject'	=> $userSession->userSession,
 			'filterForm'	=> $filterForm,
 			'message'		=> $message,
+			'categoryArray'	=> $categoryArray,
 		));
 	}
 	/*******************************
@@ -1317,14 +1377,15 @@ class MediaController extends AbstractActionController
 			$tagMediaIdArray[]	= (string)$tempresultArray['_id'];
 		}
 		$usersArray		= $this->listUsers();
-		$tagsArray		= $this->listMediaTagsById($tagMediaIdArray);
+		$mediaTagsArray	= $this->listMediaTagsById($tagMediaIdArray);
 		$categoryArray	= $this->listMediaCategory();
+		$tagsArray		= $this->listMediaTags();
 		
-		echo '<pre>===>'; print_r($tagMediaIdArray); echo '</pre>';
 		$result->setVariables(array('records'		=> $resultArray,
 									'message'		=> $message,
 									'categoryArray'	=> $categoryArray,
 									'usersArray'	=> $usersArray,
+									'mediaTagsArray'=> $mediaTagsArray,
 									'tagsArray'		=> $tagsArray,
 									'page'			=> $page,
 									'sortBy'		=> $sortBy,

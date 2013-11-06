@@ -15,88 +15,48 @@ class SiteSettingsForm extends Form
 		$this->setAttribute('class', 'form-horizontal');
 		$this->setAttribute('name', 'siteSettings');
 		$this->setAttribute('id', 'siteSettings');
-		
+		//	FB AppID
 		$this->add(array(
-            'name' => 'carrier_id',
-            'attributes' => array(
-                'type'  => 'hidden',
-            ),
-        ));
-        
-		$this->add(array(
-            'name' => 'hidden_carrier_logo',
-            'attributes' => array(
-                'type'  => 'hidden',
-            ),
-        ));
-        
-		$this->add(array(
-            'name' => 'hidden_carrier_banner',
-            'attributes' => array(
-                'type'  => 'hidden',
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'hidden_carrier_foryou',
-            'attributes' => array(
-                'type'  => 'hidden',
-            ),
-        ));
-		$this->add(array(
-            'name' => 'hidden_carrier_forafriend',
-            'attributes' => array(
-                'type'  => 'hidden',
-            ),
-        ));
-		$this->add(array(
-            'name' => 'hidden_carrier_ask',
-            'attributes' => array(
-                'type'  => 'hidden',
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'carrier_fbappid',
+            'name' => 'fbappid',
             'attributes' => array(
                 'type'  => 'text',
-				'id'	=> 'carrier_fbappid',
+				'id'	=> 'fbappid',
 				'class'	=> 'input-large',
 				'maxlength'	=> '200',
             ),
             'options' => array(
             ),
         ));
-		
+		//	FB SecretKey
 		$this->add(array(
-            'name' => 'carrier_fbkey',
+            'name' => 'fbkey',
             'attributes' => array(
                 'type'  => 'text',
-				'id'	=> 'carrier_fbkey',
+				'id'	=> 'fbkey',
 				'class'	=> 'input-large',
 				'maxlength'	=> '200',
             ),
             'options' => array(
             ),
         ));
-		
+		//	FB AppName
 		$this->add(array(
-            'name' => 'carrier_fbapp_name',
+            'name' => 'fbapp_name',
             'attributes' => array(
                 'type'  => 'text',
-				'id'	=> 'carrier_fbapp_name',
+				'id'	=> 'fbapp_name',
 				'class'	=> 'input-large',
 				'maxlength'	=> '200',
             ),
             'options' => array(
             ),
         ));
-		
+		//	FB Page URL
 		$this->add(array(
-            'name' => 'carrier_fb_page',
+            'name' => 'fb_page',
             'attributes' => array(
                 'type'  => 'text',
-				'id'	=> 'carrier_fb_page',
+				'id'	=> 'fb_page',
 				'class'	=> 'input-large',
 				'maxlength'	=> '255',
 				'style' => 'width:500px',
@@ -104,209 +64,10 @@ class SiteSettingsForm extends Form
             'options' => array(
             ),
         ));
-		
+		//	Site Timezone
 		$this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'carrier_font',
-            'options' => array(
-                'value_options' => array(
-                    '' 				=> 'Select Font',
-                    "Arial"			=> "Arial", 
-					"Arial Black"	=> "Arial Black",
-					"Comic Sans Ms"	=> "Comic Sans Ms",
-					"Courier"		=> "Courier",
-					"Courier New"	=> "Courier New",
-					"Cursive"		=> "Cursive",
-					"Fantasy"		=> "Fantasy",
-					"Georgia"		=> "Georgia",
-					"Helvetica"		=> "Helvetica",
-					"Monospace"		=> "Monospace",
-					"Proxima Nova"	=> "Proxima Nova",
-					"Sans-Serif"	=> "Sans-Serif",
-					"Tahoma"		=> "Tahoma",
-					"Times New Roman"	=> "Times New Roman",
-					"Trebuchet Ms"	=> "Trebuchet Ms",
-					"Verdana"		=> "Verdana"
-                ),
-            ),
-            'attributes' => array(
-                'value' => '',
-				'id'	=> 'carrier_font'
-            )
-        ));
-		
-		$this->add(array(
-            'name' => 'carrier_themecolor',
-            'attributes'	=> array(
-                'type' 		=> 'text',
-				'id'		=> 'colorpickerField1',
-				'onblur'	=> 'changePickedColor(this.value, 1);',
-				'onkeyup'	=> 'changePickedColor(this.value, 1);',
-				'onfocus'	=> 'setField(1);',
-				'class'		=> 'input-large',
-				'maxlength'	=> '6',
-				'size'		=> '6',
-				'value'		=> 'FFFFFF',
-            ),
-            'options' => array(
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'carrier_backgroundcolor',
-            'attributes'	=> array(
-                'type' 		=> 'text',
-				'id'		=> 'colorpickerField2',
-				'onblur'	=> 'changePickedColor(this.value, 2);',
-				'onkeyup'	=> 'changePickedColor(this.value, 2);',
-				'onfocus'	=> 'setField(2);',
-				'class'		=> 'input-large',
-				'maxlength'	=> '6',
-				'size'		=> '6',
-				'value'		=> 'FFFFFF',
-            ),
-            'options' => array(
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'carrier_buttoncolor',
-            'attributes'	=> array(
-                'type' 		=> 'text',
-				'id'		=> 'colorpickerField3',
-				'onblur'	=> 'changePickedColor(this.value, 3);',
-				'onkeyup'	=> 'changePickedColor(this.value, 3);',
-				'onfocus'	=> 'setField(3);',
-				'class'		=> 'input-large',
-				'maxlength'	=> '6',
-				'size'		=> '6',
-				'value'		=> 'FFFFFF',
-            ),
-            'options' => array(
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'carrier_buttonhighlightcolor',
-            'attributes'	=> array(
-                'type' 		=> 'text',
-				'id'		=> 'colorpickerField5',
-				'onblur'	=> 'changePickedColor(this.value, 5);',
-				'onkeyup'	=> 'changePickedColor(this.value, 5);',
-				'onfocus'	=> 'setField(5);',
-				'class'		=> 'input-large',
-				'maxlength'	=> '6',
-				'size'		=> '6',
-				'value'		=> '148E51',
-            ),
-            'options' => array(
-            ),
-        ));
-		
-		$this->add(array(
-            'name' => 'carrier_fontcolor',
-            'attributes'	=> array(
-                'type' 		=> 'text',
-				'id'		=> 'colorpickerField4',
-				'onblur'	=> 'changePickedColor(this.value, 4);',
-				'onkeyup'	=> 'changePickedColor(this.value, 4);',
-				'onfocus'	=> 'setField(4);',
-				'class'		=> 'input-large',
-				'maxlength'	=> '6',
-				'size'		=> '6',
-				'value'		=> 'FFFFFF',
-            ),
-            'options' => array(
-            ),
-        ));
-		
-		$this->add(array(
-			'name'	=> 'carrier_logo',
-			'attributes' => array(
-				'id' => 'carrier_logo',
-				'type'  => 'file',
-				'class' => 'input-file uniform_on',
-				'style' => 'opacity: 0;',
-				'onchange' => 'readURL(this);',
-			),
-			'options' => array(
-            ),
-		));
-		
-		$this->add(array(
-			'name'	=> 'carrier_banner',
-			'attributes' => array(
-				'id' => 'carrier_banner',
-				'type'  => 'file',
-				'class' => 'input-file uniform_on',
-				'style' => 'opacity: 0;',
-				'onchange' => 'readBannerURL(this);',
-			),
-			'options' => array(
-            ),
-		));
-		
-		$this->add(array(
-			'name'	=> 'carrier_foryou_logo',
-			'attributes' => array(
-				'id' => 'carrier_foryou_logo',
-				'type'  => 'file',
-				'class' => 'input-file uniform_on',
-				'style' => 'opacity: 0;',
-				'onchange' => 'readURLforyou(this);',
-			),
-			'options' => array(
-            ),
-		));
-		
-		$this->add(array(
-			'name'	=> 'carrier_forafriend_logo',
-			'attributes' => array(
-				'id' => 'carrier_forafriend_logo',
-				'type'  => 'file',
-				'class' => 'input-file uniform_on',
-				'style' => 'opacity: 0;',
-				'onchange' => 'readURLforafriend(this);',
-			),
-			'options' => array(
-            ),
-		));
-		
-		$this->add(array(
-			'name'	=> 'carrier_ask_logo',
-			'attributes' => array(
-				'id' => 'carrier_ask_logo',
-				'type'  => 'file',
-				'class' => 'input-file uniform_on',
-				'style' => 'opacity: 0;',
-				'onchange' => 'readURLask(this);',
-			),
-			'options' => array(
-            ),
-		));
-		
-		$this->add(array(
-			'name'	=> 'carrier_topbanner',
-			'attributes' => array(
-				'id' => 'carrier_topbanner',
-				'type'  => 'file',
-				'class' => 'input-file uniform_on',
-				'style' => 'opacity: 0;',
-			),
-			'options' => array(
-            ),
-		));
-		
-		$this->add(array(
-            'name' => 'topbannerflag',
-            'attributes' => array(
-                'type'  => 'hidden',
-            ),
-        ));
-		
-		$this->add(array(
-            'type' => 'Zend\Form\Element\Select',
-            'name' => 'carrier_timezone',
+            'name' => 'timezone',
             'options' => array(
                 'value_options' => array(
                     "" => "Select Time Zone",
@@ -347,15 +108,7 @@ class SiteSettingsForm extends Form
                 'value' => ''
             )
         ));
-		
-		/*	$this->add(array(
-            'type' => 'Zend\Form\Element\Select',
-            'name' => 'carrier_language',
-            'attributes' => array(
-                'value' => ''
-            )
-        ));	*/
-		
+		//	Submit
 		$this->add(array(
             'name' => 'submit',
             'attributes' => array(
@@ -365,16 +118,6 @@ class SiteSettingsForm extends Form
 				'class'	=> 'btn btn-primary',
             ),
         ));
-		
-        $this->add(array(
-            'name' => 'preview',
-            'attributes' => array(
-                'type'  => 'button',
-                'value' => 'Show Preview',
-				'class'	=> 'btn btn-primary',
-            ),
-        ));
-		
     }
 }
 ?>

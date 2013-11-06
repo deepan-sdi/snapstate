@@ -40,17 +40,42 @@
 		$form->setAttribute('action', $this->url('cms', array('controller' => 'media', 'action' => 'list-media')));
 		$form->prepare();
 		echo $this->form()->openTag($form);	?>
-					<div class="control-group span3">
+					<div class="control-group span3" style="min-height:60px;">
 						<div class="controls">
 						  <?php	echo $this->formRow($form->get('keyword')); ?>
 						</div>
 					</div>
-					<div class="control-group span3">
+					<div class="control-group span3" style="min-height:60px;">
 						<div class="controls">
-						<?php	echo $this->formRow($form->get('selectStatus')); ?>
+						  <?php	$tempOptionsArray	= array('' => 'Select Option', 'media_title' => 'Title', 'media_url' => 'URL', 'media_description' => 'Description');
+						  		echo $this->formRow($form->get('selectOption')->setValueOptions($tempOptionsArray)); ?>
 						</div>
 					</div>
-					<div class="control-group span3">
+					
+					<?php	$tempArray		= array();
+							$tempArray['']	= 'Select Category';
+							if(is_array($this->categoryArray) && count($this->categoryArray) > 0) {
+								foreach($this->categoryArray as $key => $value) {
+									$id				= (string)$value['_id'];
+									$tempArray[$id]	= $value['category_name'];
+								}
+							}	?>
+					<div class="control-group span3" style="min-height:60px;">
+						<div class="controls">
+						  <?php	echo $this->formRow($form->get('categoryFilter')->setValueOptions($tempArray)); ?>
+						</div>
+					</div>
+					<div class="control-group span3" style="min-height:60px;">
+						<div class="controls">
+						<?php	echo $this->formRow($form->get('approvalStatus')); ?>
+						</div>
+					</div>
+					<div class="control-group span3" style="margin-left:0px;">
+						<div class="controls">
+						<?php	echo $this->formRow($form->get('selectStatus')->setValueOptions(array('2' => 'Select Visibility', '1' => 'Active', '0' => 'Inactive'))); ?>
+						</div>
+					</div>
+					<div class="control-group span3" style="float:right;">
 						<div class="controls">
 							<?php	echo $this->formRow($form->get('submit')); ?>
 							<?php	echo $this->formRow($form->get('reset')); ?>
@@ -103,7 +128,7 @@
 				</tr>
 			</tbody>
 		</table>            
-		<div class="modal  fade" id="viewUser" style="display:block;">
+		<div class="modal  fade" id="viewUser" style="display:none;top:40%;">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				<h2>View Video</h2>
@@ -114,22 +139,24 @@
 						<table class="table table-bordered table-striped">
 							<tbody>
 							  <tr>
-								<td width="30%"><strong>Video</strong></td>
+								<td width="30%"><strong>Title</strong></td>
 								<td id="view_title">Admin</td>
 							  </tr>
-							   <tr>
+							  <tr>
 								<td><strong>URL</strong></td>
 								<td id="view_url">Active</td>
 							  </tr>
-							   <tr>
+							  <tr>
 								<td><strong>Category</strong></td>
 								<td id="view_category">Active</td>
 							  </tr>
 							   <tr>
-								<td><strong>Description</strong></td>
-								<td id="view_description">Active</td>
+								<td colspan="2"><strong>Description</strong></td>
 							  </tr>
-							   <tr>
+							  <tr>
+								<td colspan="2" style="font-size:11px;"><div id="view_description" style="height:70px;overflow:scroll">Active</div></td>
+							  </tr>
+							   <tr id="view_tags_tr">
 								<td><strong>Tags</strong></td>
 								<td id="view_tags">Active</td>
 							  </tr>

@@ -1255,7 +1255,7 @@ class UserController extends AbstractActionController
 			$createRoleForm->get('role_activity_9')->setAttribute('value', $role['role_activity_9']);
 			$createRoleForm->get('role_status')->setAttribute('value', $role['role_status']);
 		}
-		
+		$createRoleForm->get('submit')->setAttribute('value', 'Save Changes');
 		$request 		= $this->getRequest();
 		$message		= '';
 		$errorMessage	= '';

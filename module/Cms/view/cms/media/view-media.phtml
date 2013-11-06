@@ -30,7 +30,7 @@
 					  <th style="cursor:pointer;" width="15%" onclick="loadDiv('listingDiv', '/media-list', 'media_title', '<?php	if($this->sortBy == 'media_title') { echo '1'; } else { echo '0'; } ?>');">Video Title</th>
 					  <th style="cursor:pointer;" width="15%" onclick="loadDiv('listingDiv', '/media-list', 'media_category', '<?php	if($this->sortBy == 'media_category') { echo '1'; } else { echo '0'; } ?>');">Category</th>
 					  <th style="cursor:pointer;" width="15%" onclick="loadDiv('listingDiv', '/media-list', 'media_approved', '<?php	if($this->sortBy == 'media_approved') { echo '1'; } else { echo '0'; } ?>');">Approval Status</th>
-					  <th style="cursor:pointer;" width="10%" onclick="loadDiv('listingDiv', '/media-list', 'media_status', '<?php	if($this->sortBy == 'media_status') { echo '1'; } else { echo '0'; } ?>');">Status</th>
+					  <th style="cursor:pointer;" width="10%" onclick="loadDiv('listingDiv', '/media-list', 'media_status', '<?php	if($this->sortBy == 'media_status') { echo '1'; } else { echo '0'; } ?>');">Visibility</th>
 					  <th width="30%">Actions</th>
 				  </tr>
 			  </thead>   
@@ -63,13 +63,23 @@
 					<td class="center">
 						<span><?php	if($row['media_status'] == 0) echo 'Inactive'; else echo 'Active'; ?></span>
 					</td>
+<?php				$recordId	= (string)$row['_id']; ?>
+<?php				$mediaTags	= '';
+					if(is_array($this->mediaTagsArray) && count($this->mediaTagsArray) > 0) {
+						foreach($this->mediaTagsArray as $ikey => $ivalue) {
+							if($ivalue['media_id'] == $recordId) {
+								$mediaTags	.= (isset($tempTagArray[$ivalue['tag_id']])) ? $tempTagArray[$ivalue['tag_id']].', ' : '';
+							}
+						}
+					}
+					$mediaTags	= ($mediaTags != '') ? substr($mediaTags, 0, -2) : '';
+					?>
 					<td class="center">
 						<a class="btn btn-success view-user" href="#" 
-							onclick='setMediaValues("<?php	echo stripslashes(str_replace(array("'", '"'), array('&lsquo;', '&ldquo;'), $row['media_title'])); ?>", "<?php	echo $row['media_url']; ?>", "<?php echo $tempArray[$row['media_category']]; ?>", "<?php echo stripslashes(str_replace(array("'", '"'), array('&lsquo;', '&ldquo;'), $row['media_description'])); ?>", "<?php	if($row['media_approved'] == 1) echo 'Approved'; else echo 'Pending'; ?>", "<?php	if($row['media_status'] == 1) echo 'Active'; else echo 'Inactive'; ?>", "<?php if(isset($row['approved_user_id']) && isset($tempUserArray[$row['approved_user_id']])) echo $tempUserArray[$row['approved_user_id']]; ?>", "<?php echo $row['date_approved']; ?>", "<?php echo $row['date_added']; ?>", "<?php if(isset($row['user_id']) && isset($tempUserArray[$row['user_id']])) echo $tempUserArray[$row['user_id']]; ?>", "");'>
+							onclick='setMediaValues("<?php	echo stripslashes(str_replace(array("'", '"'), array('&lsquo;', '&ldquo;'), $row['media_title'])); ?>", "<?php	echo $row['media_url']; ?>", "<?php echo $tempArray[$row['media_category']]; ?>", "<?php echo stripslashes(str_replace(array("'", '"', '“'), array('&lsquo;', '&ldquo;', '&ldquo;'), $row['media_description'])); ?>", "<?php	if($row['media_approved'] == 1) echo 'Approved'; else echo 'Pending'; ?>", "<?php	if($row['media_status'] == 1) echo 'Active'; else echo 'Inactive'; ?>", "<?php if(isset($row['approved_user_id']) && isset($tempUserArray[$row['approved_user_id']])) echo $tempUserArray[$row['approved_user_id']]; ?>", "<?php echo $row['date_approved']; ?>", "<?php echo $row['date_added']; ?>", "<?php if(isset($row['user_id']) && isset($tempUserArray[$row['user_id']])) echo $tempUserArray[$row['user_id']]; ?>", "<?php echo $mediaTags; ?>");'>
 							<i class="icon-zoom-in icon-white"></i>  
 							View                                            
 						</a>
-						<?php	$recordId	= (string)$row['_id']; ?>
 						<a class="btn btn-info" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'edit-media', 'id' => $recordId)); ?>">
 							<i class="icon-edit icon-white"></i>  
 							Edit                                            

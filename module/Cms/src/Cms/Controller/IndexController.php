@@ -22,6 +22,7 @@ use Zend\Authentication,
 //	Forms
 use Cms\Form\LoginForm;
 use Cms\Form\ForgetPasswordForm;
+use Cms\Form\SiteSettingsForm;
 
 //	Models
 use Cms\Model\Users;
@@ -242,6 +243,27 @@ class IndexController extends AbstractActionController
 		}
 		return new ViewModel(array(
 			'userObject'	=> $userSession->userSession
+		));
+    }
+	/**************************************
+	 *	Action: site-settings              
+	 *	Page: Displays the Site settings   
+	 *************************************/
+	
+	public function siteSettingsAction()
+    {
+		$userSession = new Container('user');
+		if (!isset($userSession->userSession['_id']) || trim($userSession->userSession['_id']) == '') {
+			return $this->redirect()->toRoute('cms', array('controller' => 'index', 'action' => 'index'));
+		}
+		$siteSettingsForm	= new SiteSettingsForm();
+		$siteDetails		= array();
+		$message	= '';
+		return new ViewModel(array(
+			'userObject'		=> $userSession->userSession,
+			'siteSettingsForm'	=> $siteSettingsForm,
+			'message'			=> $message,
+			'siteDetails'		=> $siteDetails,
 		));
     }
 }
