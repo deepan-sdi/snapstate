@@ -32,7 +32,6 @@ use Cms\Model\MyAuthenticationAdapter;
 
 class MediaController extends AbstractActionController
 {
-	protected $usersTable;
 	
 	/************************************
 	 *	Method: connect     	         
@@ -341,10 +340,10 @@ class MediaController extends AbstractActionController
 		$collection	= $conn->snapstate->media;
 		$userSession = new Container('user');
 		if($opt == 1) {
-			$results	= $collection->find(array('media_title' => trim($formData['media_title'])));
+			$results	= $collection->find(array('media_title_lower' => strtolower(trim($formData['media_title']))));
 		} else if($opt == 2) {
 			$mongoID	= new \MongoID(trim($formData['_id']));
-			$document	= array('_id'	=> array('$ne' => $mongoID), 'media_title' => trim($formData['media_title']));
+			$document	= array('_id'	=> array('$ne' => $mongoID), 'media_title_lower' => strtolower(trim($formData['media_title'])));
 			$results	= $collection->find($document);
 		}
 		while($results->hasNext())
@@ -367,12 +366,13 @@ class MediaController extends AbstractActionController
 		$collection	= $conn->snapstate->media;
 		
 		$document	= array('media_title'		=> trim($formData['media_title']), 
+							'media_title_lower'	=> strtolower(trim($formData['media_title'])), 
 							'media_url'			=> trim($formData['media_url']),
 							'media_category'	=> $formData['media_category'],
 							'media_description'	=> trim($formData['media_description']), 
 							'media_approved'	=> $formData['media_approved'],
 							'media_status'		=> $formData['media_status'],
-							'user_id'			=> '5267a1b88ead0eab15000000',
+							'user_id'			=> ADMIN_USER_ID,
 							'approved_user_id'	=> $formData['approveduser'],
 							'date_added'		=> date('m/d/Y H:i:s'),
 							'date_approved' 	=> $formData['dateapproved']);
@@ -451,18 +451,18 @@ class MediaController extends AbstractActionController
 	public function updateMedia($formData) {
 		
 		if(isset($formData['approvedDate']) && $formData['approvedDate'] == '00/00/0000 00:00:00' && isset($formData['media_approved']) && $formData['media_approved'] == 1) {
-			$document	= array('$set' => array('media_title' => $formData['media_title'], 'media_url' => trim($formData['media_url']),
+			$document	= array('$set' => array('media_title' => $formData['media_title'], 'media_title_lower' => strtolower(trim($formData['media_title'])), 'media_url' => trim($formData['media_url']),
 											'media_category' => trim($formData['media_category']), 'media_description' => trim($formData['media_description']),
 											'media_approved' => trim($formData['media_approved']), 'media_status' => trim($formData['media_status']),
-											'approved_user_id' => '5267a1b88ead0eab15000000', 'date_approved' => date('m/d/Y H:i:s')));
+											'approved_user_id' => ADMIN_USER_ID, 'date_approved' => date('m/d/Y H:i:s')));
 											
 		} else if(isset($formData['approvedDate']) && $formData['approvedDate'] != '00/00/0000 00:00:00' && isset($formData['media_approved']) && $formData['media_approved'] == 0) {
-			$document	= array('$set' => array('media_title' => $formData['media_title'], 'media_url' => trim($formData['media_url']),
+			$document	= array('$set' => array('media_title' => $formData['media_title'], 'media_title_lower' => strtolower(trim($formData['media_title'])), 'media_url' => trim($formData['media_url']),
 											'media_category' => trim($formData['media_category']), 'media_description' => trim($formData['media_description']),
 											'media_approved' => trim($formData['media_approved']), 'media_status' => trim($formData['media_status']),
 											'approved_user_id' => '', 'date_approved' => '00/00/0000 00:00:00'));
 		} else {
-			$document	= array('$set' => array('media_title' => $formData['media_title'], 'media_url' => trim($formData['media_url']),
+			$document	= array('$set' => array('media_title' => $formData['media_title'], 'media_title_lower' => strtolower(trim($formData['media_title'])), 'media_url' => trim($formData['media_url']),
 											'media_category' => trim($formData['media_category']), 'media_description' => trim($formData['media_description']),
 											'media_status' => trim($formData['media_status'])));
 		}
@@ -535,7 +535,7 @@ class MediaController extends AbstractActionController
 		} else if($listingSession->offsetExists('sortBy') && $listingSession->offsetExists('sortType') && $listingSession->sortType == 0) {
 			$sort	= array($listingSession->sortBy => -1);
 		} else {
-			$sort	= array('media_title' => 1);
+			$sort	= array('media_title_lower' => 1);
 		}
 		$cursor		= $collection->find($query)->skip($skip)->limit($limit)->sort($sort);
 		return $cursor;
@@ -1128,7 +1128,7 @@ class MediaController extends AbstractActionController
 				$errorMessage	= '1';
 			} else {
 				$formPostData['dateapproved']	= (isset($formPostData['media_approved']) && $formPostData['media_approved'] == 1) ? date('m/d/Y H:i:s') : '00/00/0000 00:00:00';
-				$formPostData['approveduser']	= (isset($formPostData['media_approved']) && $formPostData['media_approved'] == 1) ? '5267a1b88ead0eab15000000' : '';
+				$formPostData['approveduser']	= (isset($formPostData['media_approved']) && $formPostData['media_approved'] == 1) ? ADMIN_USER_ID : '';
 				$formPostData['_id']			= new \MongoId();
 				$results						= $this->saveMedia($formPostData);
 				$mediaId						= (string)$results;
@@ -1196,6 +1196,7 @@ class MediaController extends AbstractActionController
 		if(isset($media['_id'])) {
 			$createMediaForm->get('_id')->setAttribute('value', $media['_id']);
 			$createMediaForm->get('media_title')->setAttribute('value', $media['media_title']);
+			//$createMediaForm->get('media_title_lower')->setAttribute('value', $media['media_title_lower']);
 			$createMediaForm->get('media_url')->setAttribute('value', $media['media_url']);
 			$createMediaForm->get('media_category')->setAttribute('value', $media['media_category']);
 			$createMediaForm->get('media_description')->setAttribute('value', $media['media_description']);
@@ -1218,7 +1219,7 @@ class MediaController extends AbstractActionController
 				$errorMessage	= '1';
 			} else {
 				$formPostData['dateapproved']	= (isset($formPostData['media_approved']) && $formPostData['media_approved'] == 1) ? date('m/d/Y H:i:s') : '00/00/0000 00:00:00';
-				$formPostData['approveduser']	= (isset($formPostData['media_approved']) && $formPostData['media_approved'] == 1) ? '5267a1b88ead0eab15000000' : '';
+				$formPostData['approveduser']	= (isset($formPostData['media_approved']) && $formPostData['media_approved'] == 1) ? ADMIN_USER_ID : '';
 				$results	= $this->updateMedia($formPostData);
 				
 				if($mediaid != '' && isset($formPostData['media_tags']) && is_array($formPostData['media_tags']) && count($formPostData['media_tags']) > 0) {

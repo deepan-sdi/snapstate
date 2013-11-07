@@ -21,7 +21,7 @@
 			<div class="row-fluid">
 				<div class="box span12">
 					<div class="box-header well" data-original-title style="cursor:pointer;">
-						<h2><i class="icon-th"></i> Site Settings</h2>
+						<h2><i class="icon-wrench"></i> Site Settings</h2>
 						<div class="box-icon">
 						</div>
 					</div>
@@ -32,54 +32,60 @@
 		echo $this->form()->openTag($form);	?>
 						  <fieldset>
 						  <div class="alert <?php	echo $messageClass; ?>" id="userSuccessmsg" style="<?php	echo $display; ?>"> Site Setting updated sucessfully.</div>
+							<?php	echo $this->formHidden($form->get('_id')->setAttribute('value', $siteDetails['_id']));	?>
 							<div class="control-group">
-								<label class="control-label" for="appId">APP ID</label>
-								<div class="controls">
-									<?php	/*	if($carrierDetails->fbappid != '') { 
-												$carrier_fbappid = $carrierDetails->carrier_fbappid;
+								<label class="control-label" for="appId" style="width:200px;">Facebook AppID</label>
+								<div class="controls" style="margin-left:220px;">
+									<?php	if(isset($siteDetails['fb_app_id']) && $siteDetails['fb_app_id'] != '') { 
+												$site_fbappid = $siteDetails['fb_app_id'];
 											} else {
-												$carrier_fbappid = '';
-											}	*/
-											echo $this->formRow($form->get('fbappid')->setAttribute('value', '123')); ?>
+												$site_fbappid = '';
+											}
+											echo $this->formRow($form->get('fbappid')->setAttribute('value', $site_fbappid)); ?>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="appKey">APP Secret Key</label>
-								<div class="controls">
-									<?php	/*	if($carrierDetails->carrier_fbkey != '') { 
-												$carrier_fbkey = $carrierDetails->carrier_fbkey;
+								<label class="control-label" for="appKey" style="width:200px;">Facebook App Secret Key</label>
+								<div class="controls" style="margin-left:220px;">
+									<?php	if(isset($siteDetails['fb_secret_key']) && $siteDetails['fb_secret_key'] != '') { 
+												$site_fbkey = $siteDetails['fb_secret_key'];
 											} else {
-												$carrier_fbkey = '';
-											}	*/
-											echo $this->formRow($form->get('fbkey')->setAttribute('value', '123'));	?>
+												$site_fbkey = '';
+											}
+											echo $this->formRow($form->get('fbkey')->setAttribute('value', $site_fbkey));	?>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="fbapp_name">APP Name</label>
-								<div class="controls">
-									<?php	/*	if($carrierDetails->carrier_fbapp_name != '') { 
-												$carrier_fbapp_name = $carrierDetails->carrier_fbapp_name;
+								<label class="control-label" for="fbapp_name" style="width:200px;">Facebook App Name</label>
+								<div class="controls" style="margin-left:220px;">
+									<?php	if(isset($siteDetails['fb_app_name']) && $siteDetails['fb_app_name'] != '') { 
+												$site_fbapp_name = $siteDetails['fb_app_name'];
 											} else {
-												$carrier_fbapp_name = '';
-											}	*/
-											echo $this->formRow($form->get('fbapp_name')->setAttribute('value', '123'));	?>
+												$site_fbapp_name = '';
+											}
+											echo $this->formRow($form->get('fbapp_name')->setAttribute('value', $site_fbapp_name));	?>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="fbpage">Facebook Page URL</label>
-								<div class="controls">
-									<?php	/*	if($carrierDetails->carrier_fb_page != '') { 
-												$carrier_fb_page = $carrierDetails->carrier_fb_page;
+								<label class="control-label" for="fbpage" style="width:200px;">Facebook Page URL</label>
+								<div class="controls" style="margin-left:220px;">
+									<?php	if(isset($siteDetails['fb_page_url']) && $siteDetails['fb_page_url'] != '') { 
+												$site_fb_page = $siteDetails['fb_page_url'];
 											} else {
-												$carrier_fb_page = '';
-											}	*/
-											echo $this->formRow($form->get('fb_page')->setAttribute('value', 'https://facebook.com/testpage'));	?>
+												$site_fb_page = '';
+											}
+											echo $this->formRow($form->get('fb_page')->setAttribute('value', $site_fb_page));	?>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="timezone">Time Zone</label>
-								<div class="controls">
-								  <?php	echo $this->formRow($form->get('timezone')->setAttributes(array('value' => '0', 'style' => 'width:450px;')));	?>
+								<label class="control-label" for="timezone" style="width:200px;">Site Time Zone</label>
+								<div class="controls" style="margin-left:220px;">
+									<?php	if(isset($siteDetails['site_timezone']) && $siteDetails['site_timezone'] != '') { 
+												$site_timezone = $siteDetails['site_timezone'];
+											} else {
+												$site_timezone = '';
+											}	?>
+								  <?php	echo $this->formRow($form->get('timezone')->setAttributes(array('value' => $site_timezone, 'style' => 'width:450px;')));	?>
 								</div>
 							</div>
 							<div class="form-actions">
@@ -95,24 +101,6 @@
 		$('div.radio').css({'margin-left':'70px'});
 		$('.inline').css({'font-size':'12px'});
 	});
-	function showRadio() {
-		$('div #uniform-undefined').each(function(){
-			if($(this).children().children().hasClass('newupload')) {
-				$(this).find('.checked').removeAttr('class');
-			} 
-		});
-		
-		$('.newupload').each(function(){
-			$(this).removeAttr('checked');
-		});
-		
-		if($("#root_label").length > 0) {
-			$("#root_label").children().children().addClass('checked');
-			$("#root_label").children().children().children().attr('checked', 'checked');
-		}
-	}
-	
-	function clickDiv(div) {
-		$('#'+div).parent().click();
-	}
+	loadDiv('listingDiv', '/cms/media/view-category', '', '');
+	setTimeout("$('#userSuccessmsg').hide('slow')", 3000);
 </script>

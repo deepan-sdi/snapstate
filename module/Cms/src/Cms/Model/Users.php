@@ -17,7 +17,6 @@ class Users implements InputFilterAwareInterface
 	public $user_status;
 	public $user_createddate;
 	public $user_updateddate;
-	public $user_carrier_id;
 	public $user_createdby;
 	public $user_access;
 	

@@ -11,10 +11,17 @@ class SiteSettingsForm extends Form
         // we want to ignore the name passed
         parent::__construct('cms');
         $this->setAttribute('method', 'post');
-		$this->setAttribute('enctype','multipart/form-data');
+		//$this->setAttribute('enctype','multipart/form-data');
 		$this->setAttribute('class', 'form-horizontal');
 		$this->setAttribute('name', 'siteSettings');
 		$this->setAttribute('id', 'siteSettings');
+		//	ID
+		$this->add(array(
+            'name' => '_id',
+            'attributes' => array(
+                'type'  => 'hidden',
+            ),
+        ));
 		//	FB AppID
 		$this->add(array(
             'name' => 'fbappid',
@@ -59,7 +66,7 @@ class SiteSettingsForm extends Form
 				'id'	=> 'fb_page',
 				'class'	=> 'input-large',
 				'maxlength'	=> '255',
-				'style' => 'width:500px',
+				'style' => 'width:440px',
             ),
             'options' => array(
             ),

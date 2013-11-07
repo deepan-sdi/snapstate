@@ -608,7 +608,7 @@
 	       		media_title: {
 		   		required: true,
 				minlength: 3,
-				maxlength: 50
+				maxlength: 300
 		 		},
 				media_url: {
 		   		required: true,
@@ -666,26 +666,17 @@
 		    return this.optional(element) || (element.files[0].size <= param) 
 		});
 		
-		$('#submit_id').click(function(){
-			if($('#logo').val() != '') {
-				$("#carrier_logo").rules("remove", "required");
-			} else {
-				$("#carrier_logo").rules("add", "required");
-			}
-		});
 		
-	     $("#siteSettings").validate({
+	      $("#siteSettings").validate({
+		  	ignore: '',
 			errorClass: "help-inline",
 			errorElement: "span",
 			errorPlacement: function(error, element) {
-				if (element.attr("name") == "carrier_logo") {
-		       		error.insertAfter("#logoError");
-				} else if(element.attr("name") == "carrier_banner") {
-					error.insertAfter("#bannerError");
-				} else if(element.attr("name") == "carrierTheme") {
-					error.insertAfter("#populate-color");
-				} else {
-					error.insertAfter(element);
+				if (element.attr("name") == "media_status") {
+	       		error.insertAfter("#radioError");
+				}
+				else {
+				error.insertAfter(element);
 				}
 				},	
 	     	highlight: function(element) {
@@ -697,117 +688,40 @@
 				$("#userSuccessmsg").hide();
 	  			},
 	   		rules: {
-	     		carrier: {
+	     		fbappid: {
 				required: true
 				},
-	       		carrier_fbappid: {
+	       		fbkey: {
 	       		required: true,
 	     		},
-				carrier_fbkey: {
+				fbapp_name: {
 				required: true
 				},
-				carrier_fbapp_name: {
+				fb_page: {
+				url: true
+				},
+				timezone: {
 				required: true
-				},
-				carrier_font: {
-				required: false
-				},
-				carrier_themecolor: {
-				required: true
-				},
-				carrier_logo: {
-				//required: true,
-				accept: "png|jpg|gif|jpeg",
-				filesize: 1048576
-				},
-				carrier_banner: {
-				required: false,
-				accept: "png|jpg|gif|jpeg",
-				filesize: 1048576
-				},
-				carrier_foryou_logo: {
-				required: false,
-				accept: "png|jpg|gif|jpeg",
-				filesize: 1048576
-				},
-				carrier_forafriend_logo: {
-				required: false,
-				accept: "png|jpg|gif|jpeg",
-				filesize: 1048576
-				},
-				carrier_ask_logo: {
-				required: false,
-				accept: "png|jpg|gif|jpeg",
-				filesize: 1048576
-				},
-				carrier_timezone: {
-				required: true
-				},
-				carrier_language: {
-				required: true
-				},
-				carrier_fb_page: {
-					url: true
 				}
 	   		},
 	   		messages: {
-	     		carrier: {
-					required: "Please Select the Carrier"
+	     		fbappid: {
+				required: "Please Enter the Facebook AppID"
 				},
-				carrier_fbappid: {
-	                        required: "Please Enter the Application Id"
-	                    },
-				carrier_fbkey: {
-							required: "Please Enter the Application Secret Key"
+				fbkey: {
+				required: "Please Enter the Facebook Secret Key"
 				},
-				carrier_fbapp_name: {
-							required: "Please Enter the Facebook Application Name"
+				fbapp_name: {
+				required: "Please Enter the Facebook App Name"
 				},
-				carrier_font: {
-							required: "Please Select the Font"
+				fb_page: {
+				required: "Please Enter the Facebook Page URL"
 				},
-				carrier_themecolor: {
-							required: "Please Select the Theme"
-				},
-				carrier_logo: {
-							required: "Please Upload the Site Logo",
-							accept: "Site Logo must be JPG, GIF or PNG",
-							filesize: "Site Logo must be less than 1MB"
-				},
-				carrier_banner: {
-							required: "Please Upload the Site Banner",
-							accept: "Site Banner must be JPG, GIF or PNG",
-							filesize: "Site Banner must be less than 1MB"
-				},
-				carrier_foryou_logo: {
-							required: "Please Upload the For You Logo",
-							accept: "For You Logo must be JPG, GIF or PNG",
-							filesize: "For You Logo must be less than 1MB"
-				},
-				carrier_foryou_logo: {
-							required: "Please Upload the For You Logo",
-							accept: "For You Logo must be JPG, GIF or PNG",
-							filesize: "For You Logo must be less than 1MB"
-				},
-				carrier_ask_logo: {
-							required: "Please Upload the Ask Logo",
-							accept: "Ask Logo must be JPG, GIF or PNG",
-							filesize: "Ask Logo must be less than 1MB"
-				},
-				carrier_timezone: {
-							required: "Please Select the Time Zone"
-				},
-				carrier_language: {
-							required: "Please Select the Default Language"
-				},
-				carrier_fb_page: {
-							url: "Please Enter the Valid Facebook Page URL"
-				},
-						
+				timezone: {
+				required: "Please Select the Time Zone"
+				}	
 	   		}
 		})
-		
-		
 	});
 	
 	function setValues(group, firstname, lastname, email, fbuid, gender, status, dob) {

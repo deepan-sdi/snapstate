@@ -75,6 +75,45 @@ class IndexController extends AbstractActionController
 		$cursor		= $collection->find($document);
 		return $cursor;
 	}
+	/*************************************
+	 *	Method: getSiteSettings     	  
+	 *  Purpose: To get site settings	  
+	 ************************************/
+	
+	public function getSiteSettings($conn)
+	{
+		$collection	= $conn->snapstate->site_settings;
+		$cursor		= $collection->find();
+		$resultArray= array();
+		while($cursor->hasNext())
+		{
+			$resultArray	= $cursor->getNext();
+		}
+		return $resultArray;
+	}
+	/*************************************
+	 *	Method: updateSettings	     	  
+	 *  Purpose: To update site settings  
+	 ************************************/
+	
+	public function updateSettings($conn, $formData)
+	{
+		$document	= array('$set' => array('fb_app_id' 	=> trim($formData['fbappid']),
+											'fb_secret_key' => trim($formData['fbkey']),
+											'fb_app_name'	=> trim($formData['fbapp_name']),
+											'fb_page_url'	=> trim($formData['fb_page']),
+											'site_timezone'	=> $formData['timezone']));
+		$mongoID	= new \MongoID(trim($formData['_id']));
+		$query		= array('_id' => $mongoID);
+		$conn		= $this->connect();
+		$collection	= $conn->snapstate->site_settings;
+		$results	= $collection->update($query, $document);
+		if($results) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 	/********************************************************************************************
 	 *	Action: Index                                                                            
 	 *	Page: It acts as a default page. Authentication process will be triggered from this page.
@@ -116,7 +155,7 @@ class IndexController extends AbstractActionController
 						setcookie('cookie_user_email', '', time()+60*60*24*30, '/');
 						setcookie('cookie_user_password', '', time()+60*60*24*30, '/');
 					}
-					//	Session for Carrier accessibility
+					//	Session for accessibility
 					$userSession = new Container('user');
 					$userSession->userSession	= $resultArray;
 					return $this->redirect()->toRoute('cms', array('controller' => 'index', 'action' => 'dashboard'));
@@ -257,8 +296,25 @@ class IndexController extends AbstractActionController
 			return $this->redirect()->toRoute('cms', array('controller' => 'index', 'action' => 'index'));
 		}
 		$siteSettingsForm	= new SiteSettingsForm();
-		$siteDetails		= array();
-		$message	= '';
+		$conn				= $this->connect();
+		$siteDetails		= $this->getSiteSettings($conn);
+		$message			= '';
+		$request 			= $this->getRequest();
+		
+		if ($request->isPost()) {
+			$formPostData	= $request->getPost();
+			$results		= $this->updateSettings($conn, $formPostData);
+			if($results) {
+				return $this->redirect()->toRoute('cms', array('controller' => 'index', 'action' => 'site-settings', 'id' => 1));
+			}
+		}
+		
+		$id = (int) $this->params()->fromRoute('id', 0);
+		if(trim($id) == 1)
+			$message	= 'Site Settings updated successfully.';
+		else if($message == '')
+			$message	= '';
+		
 		return new ViewModel(array(
 			'userObject'		=> $userSession->userSession,
 			'siteSettingsForm'	=> $siteSettingsForm,

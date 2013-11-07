@@ -23,14 +23,6 @@ use Cms\Model\UsersTable;
 
 use Cms\Model\Group;
 
-use Cms\Model\Carrier;
-use Cms\Model\CarrierTable;
-use Cms\Model\Language;
-use Cms\Model\LanguageTable;
-use Cms\Model\Faq;
-use Cms\Model\FaqTable;
-use Cms\Model\Page;
-use Cms\Model\PageTable;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface
 {
@@ -87,50 +79,6 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
 		            $users->setDbAdapter($dbAdapter);
 		            return $users;
 		        },
-				'Cms/Model/Carrier' => function($sm){
-		            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-		            $table	= new Carrier();
-		            $table->setDbAdapter($dbAdapter);
-		            return $table;
-		        },
-				'Cms/Model/CarrierTable' => function($sm){
-		            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					//$cacheAdapter = $sm->get('Zend\Cache\Storage\Filesystem');
-		            $table	= new CarrierTable($dbAdapter);
-					//$table->setCache($cacheAdapter);
-		            return $table;
-		        },
-				'Cms/Model/Language' => function($sm){
-		            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-		            $table	= new Language();
-		            $table->setDbAdapter($dbAdapter);
-		            return $table;
-		        },
-				'Cms\Model\LanguageTable' => function($sm){
-		            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-		            $table	= new LanguageTable($dbAdapter);
-		            return $table;
-		        },
-				'Cms\Model\Faq' => function($sm){
-		            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-		            $table	= new Faq($dbAdapter);
-		            return $table;
-		        },
-				'Cms\Model\FaqTable' => function($sm){
-		            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-		            $table	= new FaqTable($dbAdapter);
-		            return $table;
-		        },
-				'Cms\Model\Page' => function($sm){
-		            $dbAdapter	= $sm->get('Zend\Db\Adapter\Adapter');
-		            $table		= new Page($dbAdapter);
-		            return $table;
-		        },
-				'Cms\Model\PageTable' => function($sm){
-		            $dbAdapter	= $sm->get('Zend\Db\Adapter\Adapter');
-		            $table		= new PageTable($dbAdapter);
-		            return $table;
-		        },
 				'db-adapter' => function($sm) {
 					return $sm->get('db');
 				},
@@ -160,17 +108,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
 				   $request = $sm->getServiceLocator()->get('Request');
 				   $helper->setRequest($request);
 				   return $helper;
-				},
-				'Carriers' => function($sm){
-				   $helper = new View\View\Helper\Carriers;
-				   return $helper;
-				},
-				'Carrierlist' => function($sm) {
-					$table = $sm->getServiceLocator()->get('Cms/Model/CarrierTable');
-                    $helper = new \Cms\View\Helper\Carrierlist($table);
-					//$helper->setTableCount($sm->getServiceLocator(), 'Cms\Model\CarrierTable');
-                    return $helper;
-                }
+				}
 	         ),
 	   );
 	}

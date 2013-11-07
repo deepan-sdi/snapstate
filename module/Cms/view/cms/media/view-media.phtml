@@ -53,7 +53,9 @@
 						$id					= (string)$value['_id'];
 						$tempUserArray[$id]	= $value['user_firstname'].' '.$value['user_lastname'];
 					}	?>
-			  <?php		foreach($records as $key => $row) : ?>
+			  <?php	//echo '<pre>===>'; print_r($records); echo '</pre>';
+			  		//die();
+			  		foreach($records as $key => $row) : ?>
 				<tr>
 					<td><?php	if(strlen($row['media_title']) > 20) echo substr($row['media_title'], 0, 20) . '...'; else echo $row['media_title']; ?></td>
 					<td><?php	if(strlen($tempArray[$row['media_category']]) > 20) echo substr($tempArray[$row['media_category']], 0, 20) . '...'; else echo $tempArray[$row['media_category']]; ?></td>
@@ -73,10 +75,10 @@
 						}
 					}
 					$mediaTags	= ($mediaTags != '') ? substr($mediaTags, 0, -2) : '';
-					?>
+					$tempDescriptionText = trim(preg_replace('/\s\s+/', ' ', $row['media_description']));	?>
 					<td class="center">
 						<a class="btn btn-success view-user" href="#" 
-							onclick='setMediaValues("<?php	echo stripslashes(str_replace(array("'", '"'), array('&lsquo;', '&ldquo;'), $row['media_title'])); ?>", "<?php	echo $row['media_url']; ?>", "<?php echo $tempArray[$row['media_category']]; ?>", "<?php echo stripslashes(str_replace(array("'", '"', '“'), array('&lsquo;', '&ldquo;', '&ldquo;'), $row['media_description'])); ?>", "<?php	if($row['media_approved'] == 1) echo 'Approved'; else echo 'Pending'; ?>", "<?php	if($row['media_status'] == 1) echo 'Active'; else echo 'Inactive'; ?>", "<?php if(isset($row['approved_user_id']) && isset($tempUserArray[$row['approved_user_id']])) echo $tempUserArray[$row['approved_user_id']]; ?>", "<?php echo $row['date_approved']; ?>", "<?php echo $row['date_added']; ?>", "<?php if(isset($row['user_id']) && isset($tempUserArray[$row['user_id']])) echo $tempUserArray[$row['user_id']]; ?>", "<?php echo $mediaTags; ?>");'>
+							onclick='setMediaValues("<?php	echo addslashes(str_replace(array("'", '"'), array('&lsquo;', '&ldquo;'), $row['media_title'])); ?>", "<?php	echo $row['media_url']; ?>", "<?php echo $tempArray[$row['media_category']]; ?>", "<?php echo addslashes(str_replace(array("'", '"', '“'), array('&lsquo;', '&ldquo;', '&ldquo;'), $tempDescriptionText)); ?>", "<?php	if($row['media_approved'] == 1) echo 'Approved'; else echo 'Pending'; ?>", "<?php	if($row['media_status'] == 1) echo 'Active'; else echo 'Inactive'; ?>", "<?php if(isset($row['approved_user_id']) && isset($tempUserArray[$row['approved_user_id']])) echo $tempUserArray[$row['approved_user_id']]; ?>", "<?php echo $row['date_approved']; ?>", "<?php echo $row['date_added']; ?>", "<?php if(isset($row['user_id']) && isset($tempUserArray[$row['user_id']])) echo $tempUserArray[$row['user_id']]; ?>", "<?php echo $mediaTags; ?>");'>
 							<i class="icon-zoom-in icon-white"></i>  
 							View                                            
 						</a>
