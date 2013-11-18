@@ -1,0 +1,231 @@
+<?php	echo $this->render('fo-header.phtml');
+		//	Session
+		use Zend\Session\Container;
+		$userSession	= new Container('user');	?>
+    <body class="home-page">
+		<div id="fb-root"></div>
+		<!-- <div id="bodydiv"> -->
+    	<!--View in Desktop--->
+        <div class="visible-lg">
+        	<div class="navbar navbar-fixed-top">
+            	<div class="container">
+                	<div class="navbar-header">
+                    	<a class="navbar-brand" href="#"><img src="<?php	echo SITE_IMAGE_PATH; ?>snapstate-logo.png" alt="SnapState Logo"></a> 
+                        
+<?php	if(isset($userSession->userSession['_id']) && $userSession->userSession['_id'] != '') {	?>
+						<div class="navbar-login navbar-right dropdown">
+                            <a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">My Account<b class="caret"></b></a>                
+                            <ul aria-labelledby="drop3" role="menu" class="dropdown-menu">
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-edit"></i>Edit Profile</a></li>
+                                <li class="divider" role="presentation"></li>
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-list-alt"></i>Play List</a></li>
+                                <li class="divider" role="presentation"></li>
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-video-camera"></i>Videos Watched</a></li>
+                                <li class="divider" role="presentation"></li>
+                                <li role="presentation"><a href="<?php	echo $this->url('front', array('controller' => 'index', 'action' => 'logout')); ?>" tabindex="-1" role="menuitem"><i class="fa fa-power-off"></i>Logout</a></li>
+                          </ul>
+                        </div>
+<?php	} else {	?>
+						<div class="navbar-login navbar-right"><a class="btn btn-primary visible-lg" data-toggle="modal" data-target="#login">Login</a></div>
+<?php	}	?>
+						<form class="navbar-form navbar-left visible-lg" onsubmit="return false;">
+                            <div class="form-group">
+                                <input type="text" id="navsearch" placeholder="search" class="form-control" name="search">
+                                <button type="submit" class="btn btn-success"></button>
+                            </div>        
+                        </form>
+                	</div>
+                </div>
+            </div>
+         </div>
+         
+         <div class="jumbotron visible-lg">
+            <div class="container">
+                <h1><span class="size100 bold">Snap</span> Yourself into State</h1>
+<?php	if(!isset($userSession->userSession['_id']) || $userSession->userSession['_id'] == '') {	?>
+                <p class="normal margintop30">We put your videos first. That means we don’t put ads before, after,<br>or over your videos.</p>
+                <p><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup" >FREE Signup!</a></p>
+<?php	} ?>
+            </div>
+        </div>
+        
+        <div class="flexCont">
+        
+        <aside class="asideNav hidden-lg">
+            <div class="sideBanner">
+                <div class="bannerIn">
+                    <h3><strong>snap</strong> yourself into state</h3>
+                    <p>We put your videos first. That<br> means we don’t put ads before,<br> after, or over your videos.</p>
+                    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#signup">FREE Sign up!</a>
+                </div>
+            </div>
+            <ul>
+                        <li>
+                            <h1 class="active arrow-drop"><a href="javascript:void(0)" ><i class="fa fa-2x icon-friends"></i> Friends</a></h1>
+                            <ul>
+                                <li><a href="#">Reports</a></li>
+                                <li><a href="#">Search</a></li>
+                                <li><a href="#">Graphs</a></li>
+                                <li><a href="#">Settings</a></li>
+                            </ul>                        
+                        </li>                
+                        <li>
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-filter"></i> Filter</a></h1>
+                            <ul>
+                                <li><a href="#">Seen: <em>Never</em></a></li>
+                                <li><a href="#">Friend: <em>Yes</em></a></li>
+                                <li><a href="#">Length: <em>&lt;5 minutes</em></a></li>
+                                <li><a href="#">Category: <em>Health</em></a></li>
+                                <li><a href="#">Ranking: <em>&gt;4 stars</em></a></li>
+                            </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-share"></i> Share</a></h1>
+                            <ul>
+                                <li><a href="#">Current Month</a></li>
+                                <li><a href="#">Current Week</a></li>
+                                <li><a href="#">Previous Month</a></li>
+                                <li><a href="#">Previous Week</a></li>
+                                <li><a href="#">Next Month</a></li>
+                                <li><a href="#">Next Week</a></li>
+                                <li><a href="#">Team Calendar</a></li>
+                                <li><a href="#">Private Calendar</a></li>
+                                <li><a href="#">Settings</a></li>
+                          </ul>
+                        </li>               
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-upload"></i> Contribute</a></h1>
+                            <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                          </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-feedback"></i> Feedback</a></h1>
+                             <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                             </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-like"></i> Like / Dislike</a></h1>
+                             <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                             </ul>
+                        </li>
+                    </ul>
+        </aside>
+        
+        <div class="flexDiv">
+            <div class="navbar navbar-fixed-top hidden-lg">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <a class="navbar-brand" href="#"><img src="<?php	echo SITE_IMAGE_PATH; ?>snapstate-logo@2x.png" alt="SnapState Logo"></a> 
+
+                        <a class="navbar-search" href="#"><span class="fa fa-2x fa-search"></span> <span class="fa fa-2x fa-times"></span></a> 
+                    </div>
+                    <form class="navbar-form">
+                        <div class="form-group">
+
+                            <div class="searchSm">
+                                <input type="text" id="navsearch" placeholder="search" class="form-control" name="search">
+                                <button type="submit" class="btn btn-success searchSubmit"></button>
+                            </div>
+
+                        </div>        
+                    </form>
+                </div>
+            </div>
+
+            <main class='SCROLLER_FRAME'>
+                <div class='SCROLLER'>
+                    <div class="container">
+                        <div class="row">
+                        	<aside class="col-lg-3 asideNav visible-lg">
+                    <ul>
+                        <li>
+                            <h1 class="active arrow-drop"><a href="javascript:void(0)" ><i class="fa fa-2x icon-friends"></i> Friends</a></h1>
+                            <ul>
+                                <li><a href="#">Reports</a></li>
+                                <li><a href="#">Search</a></li>
+                                <li><a href="#">Graphs</a></li>
+                                <li><a href="#">Settings</a></li>
+                            </ul>                        
+                        </li>                
+                        <li>
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-filter"></i> Filter</a></h1>
+                            <ul>
+                                <li><a href="#">Seen: <em>Never</em></a></li>
+                                <li><a href="#">Friend: <em>Yes</em></a></li>
+                                <li><a href="#">Length: <em>&lt;5 minutes</em></a></li>
+                                <li><a href="#">Category: <em>Health</em></a></li>
+                                <li><a href="#">Ranking: <em>&gt;4 stars</em></a></li>
+                            </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-share"></i> Share</a></h1>
+                            <ul>
+                                <li><a href="#">Current Month</a></li>
+                                <li><a href="#">Current Week</a></li>
+                                <li><a href="#">Previous Month</a></li>
+                                <li><a href="#">Previous Week</a></li>
+                                <li><a href="#">Next Month</a></li>
+                                <li><a href="#">Next Week</a></li>
+                                <li><a href="#">Team Calendar</a></li>
+                                <li><a href="#">Private Calendar</a></li>
+                                <li><a href="#">Settings</a></li>
+                          </ul>
+                        </li>               
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-upload"></i> Contribute</a></h1>
+                            <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                          </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-feedback"></i> Feedback</a></h1>
+                             <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                             </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-like"></i> Like / Dislike</a></h1>
+                             <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                             </ul>
+                        </li>
+                    </ul>
+                </aside><!-- /Sidebar -->
+                            <div class="col-lg-9 b-left col-xs-12">
+                    <h2 class="page-title">All Videos
+                        <!--<a href="#" class="btn btn-primary tab-ind ">Login</a>-->
+                        <a href="#" class="btn btn-primary tab-ind hidden-lg" data-toggle="modal" data-target="#login">Login</a>
+                    </h2>
+<?php	echo $this->content; ?>
+                </div>
+                        </div>
+                    </div>
+                    <!-- /container -->
+<?php	echo $this->render('fo-footer.phtml'); ?>

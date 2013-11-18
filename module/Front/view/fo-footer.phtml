@@ -1,0 +1,267 @@
+<footer>
+            <div class="footer-widgets">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-xs-12">
+                            <h2>Site Navigation</h2>
+                            <ul class="siteNav">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#">Service</a></li>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Pricing</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+
+
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-xs-12">
+                            <h2>Widget Header</h2>
+                            <p>This text is for dummy purpose only it will be replaced later. This text is for dummy purpose only it will be replaced later.</p>
+                            <p><a href="#">read more</a></p>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-xs-12 foot-newsletter">
+                            <h2>Sign up to our Newsletter</h2>
+                            <p>Enter your email address below to receive our monthly newsletter.</p>
+                            <form class="form-newsletter">
+                                <input type="email" class="form-control" placeholder="Enter Email address Here!">
+                                <button class="btn btn-default">Submit</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-xs-12">
+                            <h2>Contact us</h2>
+                            <address>SnapState Inc.<br>
+                                302, Marine Drice, San Antonio, <br>
+                                TX 55523<br>
+                                <br>
+                                +1 555 124 7689<br>
+                                <a href="mailto:info@snapstate.com">info@snapstate.com</a></address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright row">
+                    
+					<div class="col-sm-6 col-xs-12 social pull-right">
+                        <a href="#"><img src="<?php	echo SITE_IMAGE_PATH; ?>social-icon-facebook.png" width="25" alt="facebook"></a> 
+						<a href="#"><img src="<?php	echo SITE_IMAGE_PATH; ?>social-icon-twitter.png" width="25" alt="twitter"></a> 
+						<a href="#"><img src="<?php	echo SITE_IMAGE_PATH; ?>social-icon-youtube.png" width="25" alt="youtube"></a> 
+						<a href="#"><img src="<?php	echo SITE_IMAGE_PATH; ?>social-icon-gplus.png" width="25" alt="plus"></a>
+                    </div>                    
+
+                    <div class="col-sm-6 col-xs-12">
+                        <p>&copy; Copyright 2013 SnapState.com.<br class="visible-xs"> All rights reserved. <span class="dis-inb"><a href="#">Privacy Policy</a><span class="pipeline">|</span><a href="#">Terms of service</a></span></p>                       
+                    </div>
+                  
+                </div>
+            </div>
+        </footer>
+
+                </div>
+            </main>
+        </div>
+            
+        </div>
+<!-- Back to top -->
+        <div id="back-top"><a href="#top"><span></span></a></div>
+       <!-- Popup -->
+       
+       <div id="login" class="modal hide-in fade ind-pop-h" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<form method="post" name="login_form" id="login_form" style="height:100%;">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="resetLoginForm();">&#120;</button>
+							<h3 id="myModalLabel">Login</h3>
+						</div>
+		
+						<div class="modal-body ind-pop  pop-pad-mob" id="login_modal">
+							<div class="row">
+								<div class="col-md-6">
+									<input type="text" placeholder="Email Address" class="mar-b15" id="login_email" name="login_email" maxlength="50">
+								</div>                  
+		
+								<div class="col-md-6">
+									<input type="password" placeholder="Password" id="login_password" name="login_password" maxlength="30">
+								</div>
+		
+							</div>
+						</div>  
+		
+						<div class="modal-footer">
+							<div class="mar-b15">
+								<a href="#" class="forgot" data-dismiss="modal" data-toggle="modal" data-target="#forget-password" title="Forget Password?" onclick="resetForgetPasswordForm();resetLoginForm();">Forget Password?</a>
+								<input type="Button" class="btn login-btn" id="login_button" value="Login" onclick="validateLoginForm();">
+								<input type="Button" data-dismiss="modal" class="btn cancel-btn " value="Cancel" onclick="resetLoginForm();">
+							</div>
+							<div class="fb-login">
+								<span class="or-bg">Or</span>                
+								<a href="#" class="fb-btn" data-dismiss="modal" onclick='fblogin();'>Login with Facebook</a><!-- loginWithFB("<?php //echo FB_APPID; ?>", "<?php //echo FB_RETURN_URL; ?>", "<?php //echo PROTOCOL; ?>"); -->
+							</div>
+						</div>
+					</div>   
+				</div>    
+			</form>	
+		</div>
+      
+	   <div id="signup" class="modal hide-in fade ind-pop-h2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<form id="registration_form" name="registration_form" method="post" style="height:100%;">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+		        	<div class="modal-header">
+		            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="resetRegistrationForm();">&#120;</button>
+		                <h3 id="myModalLabel">Non Facebook Registration</h3>
+					</div>
+		            <div class="modal-body ind-pop  pop-pad-mob" id="registration_modal">
+		            	<div class="row">
+		                	<div class="col-md-6">
+		                    	<input type="text" id="first_name" name="first_name" placeholder="First Name" class="mar-b15" maxlength="20">
+							</div>                  
+		                    <div class="col-md-6">
+		                    	<input type="text" id="last_name" name="last_name" placeholder="Last Name" class="mar-b15" maxlength="20">
+							</div>
+						</div>
+		                <div class="row">                
+		                	<div class="col-md-12">
+		                    	<input type="text" id="email_address" name="email_address" placeholder="Email Address" class="mar-b15" maxlength="50">
+							</div>
+						</div>
+		                <div class="row">
+		                	<div class="col-md-6">
+		                    	<input type="password" id="registration_password" name="registration_password" placeholder="Password" class="mar-b15" maxlength="30">
+							</div>                  
+		                    <div class="col-md-6">
+		                    	<input type="password" id="registration_confirm_password" name="registration_confirm_password" placeholder="Confirm Password" maxlength="30">
+							</div>
+						</div>
+					</div>  
+		            <div class="modal-footer">
+		            	<div class="mar-b15"> 
+		                	<input type="Button" class="btn login-btn" onclick="validateRegistrationForm();" value="Sign Up">
+			        		<input type="Button" data-dismiss="modal" class="btn cancel-btn " onclick="resetRegistrationForm();" value="Cancel">
+						</div>
+		                <div class="fb-login">
+		                	<span class="or-bg">Or</span>                
+							<a href="#" class="fb-btn" data-dismiss="modal" onclick='fblogin();'>Login with Facebook</a><!-- loginWithFB("<?php //echo FB_APPID; ?>", "<?php //echo FB_RETURN_URL; ?>", "<?php //echo PROTOCOL; ?>"); -->
+						</div>
+					</div>
+				</div>
+			</div>   
+			</form>  
+		</div>
+	   
+	   <div id="forget-password" class="modal hide-in fade ind-pop-h4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<form method="post" name="forget_password_form" id="forget_password_form" style="height:100%;">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+		        	<div class="modal-header">
+		            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="resetForgetPasswordForm();">&#120;</button>
+		                <h3 id="myModalLabel">Forget Password</h3>
+					</div>
+		            <div class="modal-body ind-pop  pop-pad-mob" id="forget-password_modal">
+		            	<div class="row">
+		                	<div class="col-md-12">
+			                   <input type="text" placeholder="Email Address" class="mar-b15" id="forget_password_email" name="forget_password_email" maxlength="50">
+			                </div>
+						</div>
+					</div>  
+		            <div class="modal-footer">
+		            	<div class="mar-b15"> 
+		                	<a href="#" class="forgot" title="Back to Login" data-dismiss="modal" data-toggle="modal" data-target="#login" onclick="resetLoginForm();resetForgetPasswordForm();">Back to Login</a>
+			                <input type="Button" class="btn login-btn" id="login_button" value="Reset" onclick="validateForgerPasswordForm();">
+			                <input type="Button" data-dismiss="modal" class="btn cancel-btn " value="Cancel" onclick="resetForgetPasswordForm();">
+						</div>
+					</div>
+				</div>
+			</div>   
+			</form>  
+		</div>
+		
+		<a href="#" id="confirmation_modal" class="forgot" data-dismiss="modal" data-toggle="modal" data-target="#confirmation"></a>
+		<div id="confirmation" class="modal hide-in fade ind-pop-h4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+		        	<div class="modal-header">
+		            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="resetRegistrationForm();">&#120;</button>
+		                <h3 id="myModalLabel">Congratulations</h3>
+					</div>
+		            <div class="modal-body ind-pop  pop-pad-mob">
+		            	<div class="row">
+		                	<div class="col-md-12" id="message_content">
+			                   Thank you for registering!  A confirmation email has been sent to your email address. Please click on the link in that email in order to activate your account.
+			                </div>
+						</div>
+					</div>  
+		            <div class="modal-footer">
+		            	<div class="mar-b15"> 
+			                <input type="Button" class="btn login-btn" data-dismiss="modal" id="confirmation_button" value="OK">
+						</div>
+					</div>
+				</div>
+			</div>   
+		</div>
+		
+	<noscript>
+		<div class="alert alert-block span10" style="margin-top:30px;">
+			<h4 class="alert-heading">Warning!</h4>
+			<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+		</div>
+	</noscript>
+	<div class="progress-indicator">
+	   <img src="/Front/img/loader.GIF" alt="" style="width:75px;height:75px;"/>
+	</div>
+    </body>
+</html>
+        <!-- JS Core -->
+<?php	echo $this->headScript();	?>
+<!-- To hide the address bar in mobile device -->
+<script type="text/javascript">
+	window.addEventListener("load",function() {
+		setTimeout(function(){
+		// Hide the address bar!
+			window.scrollTo(0, 1);
+		}, 0);
+	});
+</script> 
+<!-- To trigger the events while loading a page -->
+<script type="text/javascript">
+	$(window).load(function(){
+		$('#bodyDiv').css('display', 'block');
+	});
+	//	Start: Pre-loader
+	$(window).bind(function(){
+		$('.progress-indicator').css( 'display', 'block' );
+		setTimeout( function() {
+        	$('.progress-indicator > img').attr( 'src', 
+            $('.progress-indicator > img').attr('src')+'?reload' );
+		}, 50 );
+	});
+	//	End: Pre-loader
+	//	Start: Login with Facebook 
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId      : '353997868079462',
+		    status     : true,
+			cookie     : true,
+			xfbml      : true
+		});
+		
+		FB.Canvas.scrollTo(0,0);
+	};
+	
+	(function(d){
+		var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement('script'); js.id = id; js.async = true;
+		js.src = "//connect.facebook.net/en_US/all.js";
+		ref.parentNode.insertBefore(js, ref);
+	}(document));
+	//	End: Login with Facebook 
+</script>
+<script>
+<?php	if(isset($_GET['code']) && $_GET['code'] == 1) { ?>
+	window.close();
+<?php	} ?>
+</script>

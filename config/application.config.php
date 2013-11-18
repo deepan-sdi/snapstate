@@ -1,6 +1,7 @@
 <?php
 return array(
     'modules' => array(
+		'Front',
 		'Cms',
     ),
     'module_listener_options' => array(

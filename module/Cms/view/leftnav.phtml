@@ -67,17 +67,17 @@
 						<?php	} ?>
 						<?php	if(isset($this->userObject['group_id']) && $this->userObject['group_id'] == 1) { ?>
 						<li class="nav-header hidden-tablet" style="color: black; background-color: rgb(205, 205, 205);">Media Management</li>
-						<li class="nav-header hidden-tablet">Manage Video</li>
-						<li><a class="ajax-link" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'list-media')); ?>"><i class="icon-th-list"></i><span class="hidden-tablet"> List Videos</span></a></li>
-						<li><a class="ajax-link" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'create-media')); ?>"><i class="icon-facetime-video"></i><span class="hidden-tablet"> Create Video</span></a></li>
 						<li class="nav-header hidden-tablet">Manage Category</li>
 						<li><a class="ajax-link" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'list-category')); ?>"><i class="icon-th-list"></i><span class="hidden-tablet"> List Categories</span></a></li>
 						<li><a class="ajax-link" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'create-category')); ?>"><i class="icon-book"></i><span class="hidden-tablet"> Create Category</span></a></li>
 						<li class="nav-header hidden-tablet">Manage Tag</li>
 						<li><a class="ajax-link" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'list-tag')); ?>"><i class="icon-th-list"></i><span class="hidden-tablet"> List Tags</span></a></li>
 						<li><a class="ajax-link" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'create-tag')); ?>"><i class="icon-tag"></i><span class="hidden-tablet"> Create Tag</span></a></li>
+						<li class="nav-header hidden-tablet">Manage Video</li>
+						<li><a class="ajax-link" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'list-media')); ?>"><i class="icon-th-list"></i><span class="hidden-tablet"> List Videos</span></a></li>
+						<li><a class="ajax-link" href="<?php	echo $this->url('cms', array('controller' => 'media', 'action' => 'create-media')); ?>"><i class="icon-facetime-video"></i><span class="hidden-tablet"> Create Video</span></a></li>
 						<?php	} ?>
-						<li class="nav-header hidden-tablet leftnavlink" >Site Settings</li>
+						<li class="nav-header hidden-tablet leftnavlink" onclick="location.href='<?php	echo $this->url('cms', array('controller' => 'index', 'action' => 'site-settings')); ?>';">Site Settings</li>
 						<li class="nav-header hidden-tablet leftnavlink" onclick="location.href='<?php	echo $this->url('cms', array('controller' => 'user', 'action' => 'change-password')); ?>';">Change Password</li>
 					</ul>
 				</div>

@@ -17,7 +17,7 @@ return array(
 					//'route' => ':subdomain.localvestaapp.com',
 					//'route' => ':subdomain.localvestaapp.com',
                     'defaults' => array(
-                        'controller' => 'Cms\Controller\Index',
+                        'controller' => 'Front\Controller\Index',
                         'action'     => 'index',
                     ),
                 ),
@@ -240,8 +240,6 @@ return array(
 	'view_helpers' => array(
 		'invokables' => array(
 			'datetime'		=> 'Cms\View\Helper\Datetime',
-			'carrierlist'	=> 'Cms\View\Helper\Carrierlist',
-			'carriers'		=> 'Cms\View\Helper\Carriers',
 		),  
 	),
     'view_manager'					=> array(

@@ -231,34 +231,37 @@ class IndexController extends AbstractActionController
 				}
 				if(isset($resultArray['_id'])) {
 					$password	= mt_rand();
-					$document	= array('$set' => array('password' => md5($password)));
+					$document	= array('$set' => array('user_password' => md5($password)));
 					$query		= array('user_email' => $resultArray['user_email']);
 					$collection	= $conn->snapstate->users;
 					$collection->update($query, $document);
-					/*	echo $password;
-					die();	*/
-					/*	$subject	= 'Snapstate Admin Panel - Forget Password';
-						$message	= '<html><head><title>Forget Password</title></head>
-											<body>
-												<div>
-													<p>Hi '.ucwords($username).', </p> 
-													<p>We have sent your password. Please find the login information below.</p>
+					
+					$emailaddress	= 'deepan@sdi.la';
+					$username	= $resultArray['user_firstname'].' '.$resultArray['user_lastname'];
+					$email		= $resultArray['user_email'];
+					//	Forget Password Mailer
+					$subject	= 'Snapstate Admin Panel - Forget Password';
+					$message	= '<html><head><title>Forget Password</title></head>
+										<body>
+											<div>
+												<p>Hi '.ucwords($username).', </p> 
+												<p>We have sent your password. Please find the login information below.</p>
 													<p></p>
-													<p>Email Address: ' . $formData['email'] . '</p>
+													<p>Email Address: ' . $email . '</p>
 													<p>Password: '.$password.'</p>
 													<p></p>
 													<p></p>
 													<p>Thanks,</p>
-													<p>Snapstate.com Team.</p>
+													<p>The Snapstate Team.</p>
 												</div>
 											</body>
 										</html>';
 						$headers  = 'MIME-Version: 1.0' . "\r\n";
 						$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-						$headers .= 'From: Sbapstate.com <admin@snapstate.com>' . "\r\n";
-						$to = 'To: ' . $emailaddress . "\r\n";
+						$headers .= 'From: Snapstate.com <admin@snapstate.com>' . "\r\n";
+						$to		= 'To: ' . $emailaddress . "\r\n";
 						$headersMessage	= $headers . $to;
-						mail('', $subject, $message, $headersMessage);	*/
+						mail('', $subject, $message, $headersMessage);
 					echo '1';
 				} else {
 					echo '0';

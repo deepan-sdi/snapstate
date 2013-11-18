@@ -132,14 +132,14 @@
 				user_group: {
 				required: true
 				},
-				user_dob: {
+				/*	user_dob: {
 				required: true,
 				validdate: true,
 				date: true
-				},
-				user_gender: {
+				},	*/
+				/*	user_gender: {
 				required: true
-				},
+				},	*/
 				user_status: {
 				required: true
 				}
@@ -167,13 +167,13 @@
 				user_group: {
 							required: "Please Select User Group"
 				},
-				user_dob: {
+				/*	user_dob: {
 							required: "Please Enter the Date of Birth",
 							validdate: "Please Enter the Valid Date"
-				},
-				user_gender: {
+				},	*/
+				/*	user_gender: {
 							required: "Please Select Gender"
-				},
+				},	*/
 				user_status: {
 							required: "Please Select User Status"
 				}
@@ -729,13 +729,25 @@
 		$('#view_firstname').html(firstname);
 		$('#view_lastname').html(lastname);
 		$('#view_email').html(email);
+		$('#fbuid_tr').show();
+		$('#view_dob_tr').show();
+		$('#view_gender_tr').show();
+		
 		if($.trim(fbuid) != '') {
 			$('#fbuid').html(fbuid);
 		} else {
 			$('#fbuid_tr').hide();
 		}
-		$('#view_dob').html(dob);
-		$('#view_gender').html(gender);
+		if($.trim(dob) != '') {
+			$('#view_dob').html(dob);
+		} else {
+			$('#view_dob_tr').hide();
+		}
+		if($.trim(gender) != '') {
+			$('#view_gender').html(gender);
+		} else {
+			$('#view_gender_tr').hide();
+		}
 		$('#view_status').html(status);
 		$('#innerViewButton').click();
 	}
@@ -752,6 +764,7 @@
 		$('#view_added_user').html(added_user);
 		$('#view_added_date').html(added_date);
 		$('#view_status').html(status);
+		
 		if(approval_status == 'Pending') {
 			$('#view_approved_user_tr').hide();
 			$('#view_approved_date_tr').hide();

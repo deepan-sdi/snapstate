@@ -1,0 +1,784 @@
+<!doctype html>
+<!-- Conditional comment for mobile ie7 blogs.msdn.com/b/iemobile/ -->
+<!--[if IEMobile 7 ]>    <html class="no-js iem7" lang="en"> <![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><html class="no-js" lang="en"> <![endif]-->
+	<head>
+<?php	$this->headMeta()->setCharset('utf-8');
+		$this->headMeta()->appendName('description', '');
+		$this->headMeta()->appendName('HandheldFriendly', 'True');
+		$this->headMeta()->appendName('MobileOptimized', '320');
+		$this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0');
+		
+		$this->headMeta()->appendName('msapplication-TileImage', 'Front/img/touch/apple-touch-icon-144x144-precomposed.png');
+		$this->headMeta()->appendName('msapplication-TileColor', '#222222');
+		$this->headMeta()->appendName('apple-mobile-web-app-capable', 'yes');
+		$this->headMeta()->appendName('apple-mobile-web-app-status-bar-style', 'black');
+		$this->headMeta()->appendName('apple-mobile-web-app-title', '');
+		
+		$this->headMeta()->appendHttpEquiv('cleartype', 'on');
+		echo $this->headTitle('Snapstate');
+		echo $this->headMeta();
+		
+		$this->headLink(array('rel' => 'apple-touch-icon-precomposed', 'sizes' => '144x144', 'href' => '/Front/img/touch/apple-touch-icon-144x144-precomposed.png'), 'PREPEND');
+		$this->headLink(array('rel' => 'apple-touch-icon-precomposed', 'sizes' => '114x114', 'href' => '/Front/img/touch/apple-touch-icon-114x114-precomposed.png'), 'PREPEND');
+		$this->headLink(array('rel' => 'apple-touch-icon-precomposed', 'sizes' => '72x72', 'href' => '/Front/img/touch/apple-touch-icon-72x72-precomposed.png'), 'PREPEND');
+		$this->headLink(array('rel' => 'apple-touch-icon-precomposed', 'href' => '/Front/img/touch/apple-touch-icon-57x57-precomposed.png'), 'PREPEND');
+		$this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => '/Front/img/touch/apple-touch-icon.png'), 'PREPEND');	?>
+        
+        <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+        
+        <!-- Main Stylesheet -->
+<?php	$this->headLink(array('rel' => 'stylesheet', 'href' => '/Front/css/bootstrap.min.css'));
+		$this->headLink(array('rel' => 'stylesheet', 'href' => '/Front/css/bootstrap-theme.css'));
+		$this->headLink(array('rel' => 'stylesheet', 'href' => '/Front/css/large.css'));
+		echo  $this->headLink();	?>
+        <!--[if IE 8]><link rel="stylesheet" href="css/ie8.css"><![endif]-->
+        <!--[if !IE]>
+		<link type="text/css" rel="stylesheet" media="only screen and (max-width: 480px)" href="css/small.css" />
+		<link type="text/css" rel="stylesheet" media="only screen and (min-width: 768px) and (max-width: 1024px)" href="css/small.css" />
+		<![endif]-->
+<?php	$this->headScript()->appendFile('/Front/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js');
+		$this->headScript()->appendFile('/Front/js/vendor/jquery-1.10.1.min.js');
+		$this->headScript()->appendFile('/Front/js/vendor/bootstrap.min.js');
+		$this->headScript()->appendFile('/Front/js/mobile.js');
+		$this->headScript()->appendFile('/Front/js/main.js');	?>
+    </head>
+    <body class="home-page">
+    	<!--View in Desktop--->
+        <div class="visible-lg">
+        	<div class="navbar navbar-fixed-top">
+            	<div class="container">
+                	<div class="navbar-header">
+                    	<a class="navbar-brand" href="#"><img src="/Front/img/snapstate-logo.png" alt="SnapState Logo"></a> 
+                        <div class="navbar-login navbar-right"><a class="btn btn-primary visible-lg" data-toggle="modal" data-target="#login">Login</a></div>
+                        <form class="navbar-form navbar-left visible-lg">
+                            <div class="form-group">
+                                <input type="text" id="navsearch" placeholder="search" class="form-control" name="search">
+                                <button type="submit" class="btn btn-success"></button>
+                            </div>        
+                        </form>
+                	</div>
+                </div>
+            </div>
+         </div>
+         
+         <div class="jumbotron visible-lg">
+            <div class="container">
+                <h1><span class="size100 bold">Snap</span> Yourself into State</h1>
+                <p class="normal margintop30">We put your videos first. That means we don’t put ads before, after,<br>or over your videos.</p>
+                <p><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup">FREE Signup!</a></p>
+            </div>
+        </div>
+        
+        <div class="flexCont">
+        
+        <aside class="asideNav hidden-lg">
+            <div class="sideBanner">
+                <div class="bannerIn">
+                    <h3><strong>snap</strong> yourself into state</h3>
+                    <p>We put your videos first. That<br> means we don’t put ads before,<br> after, or over your videos.</p>
+                    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#signup">FREE Sign up!</a>
+                </div>
+            </div>
+            <ul>
+                        <li>
+                            <h1 class="active arrow-drop"><a href="javascript:void(0)" ><i class="fa fa-2x icon-friends"></i> Friends</a></h1>
+                            <ul>
+                                <li><a href="#">Reports</a></li>
+                                <li><a href="#">Search</a></li>
+                                <li><a href="#">Graphs</a></li>
+                                <li><a href="#">Settings</a></li>
+                            </ul>                        
+                        </li>                
+                        <li>
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-filter"></i> Filter</a></h1>
+                            <ul>
+                                <li><a href="#">Seen: <em>Never</em></a></li>
+                                <li><a href="#">Friend: <em>Yes</em></a></li>
+                                <li><a href="#">Length: <em>&lt;5 minutes</em></a></li>
+                                <li><a href="#">Category: <em>Health</em></a></li>
+                                <li><a href="#">Ranking: <em>&gt;4 stars</em></a></li>
+                            </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-share"></i> Share</a></h1>
+                            <ul>
+                                <li><a href="#">Current Month</a></li>
+                                <li><a href="#">Current Week</a></li>
+                                <li><a href="#">Previous Month</a></li>
+                                <li><a href="#">Previous Week</a></li>
+                                <li><a href="#">Next Month</a></li>
+                                <li><a href="#">Next Week</a></li>
+                                <li><a href="#">Team Calendar</a></li>
+                                <li><a href="#">Private Calendar</a></li>
+                                <li><a href="#">Settings</a></li>
+                          </ul>
+                        </li>               
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-upload"></i> Contribute</a></h1>
+                            <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                          </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-feedback"></i> Feedback</a></h1>
+                             <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                             </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-like"></i> Like / Dislike</a></h1>
+                             <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                             </ul>
+                        </li>
+                    </ul>
+        </aside>
+        
+        <div class="flexDiv">
+            <div class="navbar navbar-fixed-top hidden-lg">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <a class="navbar-brand" href="#"><img src="/Front/img/snapstate-logo@2x.png" alt="SnapState Logo"></a> 
+
+                        <a class="navbar-search" href="#"><span class="fa fa-2x fa-search"></span> <span class="fa fa-2x fa-times"></span></a> 
+                    </div>
+                    <form class="navbar-form">
+                        <div class="form-group">
+
+                            <div class="searchSm">
+                                <input type="text" id="navsearch" placeholder="search" class="form-control" name="search">
+                                <button type="submit" class="btn btn-success searchSubmit"></button>
+                            </div>
+
+                        </div>        
+                    </form>
+                </div>
+            </div>
+
+            <main class='SCROLLER_FRAME'>
+                <div class='SCROLLER'>
+                    <div class="container">
+                        <div class="row">
+                        	<aside class="col-lg-3 asideNav visible-lg">
+                    <ul>
+                        <li>
+                            <h1 class="active arrow-drop"><a href="javascript:void(0)" ><i class="fa fa-2x icon-friends"></i> Friends</a></h1>
+                            <ul>
+                                <li><a href="#">Reports</a></li>
+                                <li><a href="#">Search</a></li>
+                                <li><a href="#">Graphs</a></li>
+                                <li><a href="#">Settings</a></li>
+                            </ul>                        
+                        </li>                
+                        <li>
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-filter"></i> Filter</a></h1>
+                            <ul>
+                                <li><a href="#">Seen: <em>Never</em></a></li>
+                                <li><a href="#">Friend: <em>Yes</em></a></li>
+                                <li><a href="#">Length: <em>&lt;5 minutes</em></a></li>
+                                <li><a href="#">Category: <em>Health</em></a></li>
+                                <li><a href="#">Ranking: <em>&gt;4 stars</em></a></li>
+                            </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-share"></i> Share</a></h1>
+                            <ul>
+                                <li><a href="#">Current Month</a></li>
+                                <li><a href="#">Current Week</a></li>
+                                <li><a href="#">Previous Month</a></li>
+                                <li><a href="#">Previous Week</a></li>
+                                <li><a href="#">Next Month</a></li>
+                                <li><a href="#">Next Week</a></li>
+                                <li><a href="#">Team Calendar</a></li>
+                                <li><a href="#">Private Calendar</a></li>
+                                <li><a href="#">Settings</a></li>
+                          </ul>
+                        </li>               
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-upload"></i> Contribute</a></h1>
+                            <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                          </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-feedback"></i> Feedback</a></h1>
+                             <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                             </ul>
+                        </li>
+                        <li> 
+                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-like"></i> Like / Dislike</a></h1>
+                             <ul>
+                                <li><a href="#">Global favs</a></li>
+                                <li><a href="#">My favs</a></li>
+                                <li><a href="#">Team favs</a></li>
+                                <li><a href="#">Settings</a></li>
+                             </ul>
+                        </li>
+                    </ul>
+                </aside><!-- /Sidebar -->
+                            <div class="col-lg-9 b-left col-xs-12">
+                    <h2 class="page-title">All Videos
+                        <!--<a href="#" class="btn btn-primary tab-ind ">Login</a>-->
+                        <a href="#" class="btn btn-primary tab-ind hidden-lg" data-toggle="modal" data-target="#login">Login</a>
+                    </h2>
+                    <dl class="row videoList">
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video1.png" alt="">
+                                        <!--<iframe src="http://youtube.com/embed/m4cgLL8JaVI?rel=0" frameborder="0" allowfullscreen></iframe>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8 col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video2.png" alt="">
+                                        <!--<iframe src="http://youtube.com/embed/m4cgLL8JaVI?rel=0" frameborder="0" allowfullscreen></iframe>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8 col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video1.png" alt="">
+                                        <!--<iframe src="http://youtube.com/embed/m4cgLL8JaVI?rel=0" frameborder="0" allowfullscreen></iframe>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8 col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video2.png" alt="">
+                                        <!--<iframe src="http://youtube.com/embed/m4cgLL8JaVI?rel=0" frameborder="0" allowfullscreen></iframe>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video1.png" alt="">
+                                        <!--<iframe src="http://youtube.com/embed/m4cgLL8JaVI?rel=0" frameborder="0" allowfullscreen></iframe>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video2.png" alt="">
+                                        <!--<iframe src="http://youtube.com/embed/m4cgLL8JaVI?rel=0" frameborder="0" allowfullscreen></iframe>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video1.png" alt="">
+                                        <!--<iframe src="http://youtube.com/embed/m4cgLL8JaVI?rel=0" frameborder="0" allowfullscreen></iframe>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video2.png" alt="">
+                                        <!--<iframe src="http://youtube.com/embed/m4cgLL8JaVI?rel=0" frameborder="0" allowfullscreen></iframe>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video1.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video2.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video1.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="col-md-4 col-xs-12 videoFrame">
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-6">
+                                    <div class="video">
+                                        <img src="/Front/img/video2.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-6">
+                                    <h4><a href="http://vimeo.com/75542539">How bad do you want it?</a></h4>
+
+                                    <div class="row">
+                                        <div class="col-md-4  col-xs-12 pull-right">
+                                            <ul class="likes">
+                                                <li><a href="#" class="like"><i class="fa fa-2x fa-thumbs-up"></i></a></li>
+                                                <li><a href="#" class="dislike"><i class="fa fa-2x fa-thumbs-down"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-8  col-xs-12 pull-left">
+                                            <ul class="users"> 
+                                                <li><a href="#"><img src="/Front/img/user01.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user02.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li><a href="#"><img src="/Front/img/user03.jpg" width="30" height="30" alt="user" title="user name"></a></li>
+                                                <li class="more"><a href="#">20+</a></li>
+                                            </ul>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd class="clearfix videoMore">
+                            <a class="btn btn-default" href="#">show 18 more</a>
+                        </dd>
+                    </dl>
+                </div>
+                        </div>
+                    </div>
+                    <!-- /container -->
+
+                    <footer>
+            <div class="footer-widgets">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-xs-12">
+                            <h2>Site Navigation</h2>
+                            <ul class="siteNav">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#">Service</a></li>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Pricing</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+
+
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-xs-12">
+                            <h2>Widget Header</h2>
+                            <p>This text is for dummy purpose only it will be replaced later. This text is for dummy purpose only it will be replaced later.</p>
+                            <p><a href="#">read more</a></p>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-xs-12 foot-newsletter">
+                            <h2>Sign up to our Newsletter</h2>
+                            <p>Enter your email address below to receive our monthly newsletter.</p>
+                            <form class="form-newsletter">
+                                <input type="email" class="form-control" placeholder="Enter Email address Here!">
+                                <button class="btn btn-default">Submit</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-xs-12">
+                            <h2>Contact us</h2>
+                            <address>SnapState Inc.<br>
+                                302, Marine Drice, San Antonio, <br>
+                                TX 55523<br>
+                                <br>
+                                +1 555 124 7689<br>
+                                <a href="mailto:info@snapstate.com">info@snapstate.com</a></address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright row">
+                    
+                      <div class="col-sm-6 col-xs-12 social pull-right">
+                        <a href="#"><img src="/Front/img/social-icon-facebook.png" width="25" alt="facebook"></a> <a href="#"><img src="/Front/img/social-icon-twitter.png" width="25" alt="twitter"></a> <a href="#"><img src="/Front/img/social-icon-youtube.png" width="25" alt="youtube"></a> <a href="#"><img src="/Front/img/social-icon-gplus.png" width="25" alt="plus"></a>
+                    </div>                    
+
+                    <div class="col-sm-6 col-xs-12">
+                        <p>&copy; Copyright 2013 SnapState.com.<br class="visible-xs"> All rights reserved. <span class="dis-inb"><a href="#">Privacy Policy</a><span class="pipeline">|</span><a href="#">Terms of service</a></span></p>                       
+                    </div>
+                  
+                </div>
+            </div>
+        </footer>
+
+                </div>
+            </main>
+        </div>
+            
+        </div>
+        <!-- Back to top -->
+        <div id="back-top"><a href="#top"><span></span></a></div>
+       <!-- Popup -->
+       
+        <div id="login" class="modal hide-in fade ind-pop-h" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Login</h3>
+            </div>
+            <div class="modal-body ind-pop  pop-pad-mob">
+                <div class="row">
+                	
+                    <div class="col-md-6">
+                        <input type="text" value="Email Address" class="mar-b15">
+                     </div>                  
+                    <div class="col-md-6">
+                        <input type="text" value="Password">
+                    </div>
+                    
+                </div>
+            </div>  
+            <div class="modal-footer">
+              <a href="#" class="forgot" title="">Forgot Password?</a>
+              <button class="btn login-btn">Login</button>
+              <button data-dismiss="modal" class="btn cancel-btn ">Cancel</button>              
+            </div>
+            
+            <div class="fb-login">
+            	<span class="or-bg">Or</span>                
+                <a href="#" class="fb-btn">Login with Facebook</a>
+            </div>
+       </div>
+       
+       <div id="signup" class="modal hide-in fade ind-pop-h2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Non Facebook Registration</h3>
+            </div>
+            <div class="modal-body ind-pop  pop-pad-mob">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" value="First Name" class="mar-b15">
+                     </div>                  
+                    <div class="col-md-6">
+                        <input type="text" value="Last Name" class="mar-b15">
+                    </div>
+                </div>
+                <div class="row">                
+                    <div class="col-md-12">
+                        <input type="text" value="Email Address" class="mar-b15">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" value="Password"  class="mar-b15">
+                     </div>                  
+                    <div class="col-md-6">
+                        <input type="text" value="Confirm Password">
+                    </div>
+                </div>
+            </div>  
+            <div class="modal-footer">
+              <button class="btn login-btn">Sign Up</button>
+              <button data-dismiss="modal" class="btn cancel-btn ">Cancel</button>              
+            </div>
+            <div class="fb-login">
+            	<span class="or-bg">Or</span>                
+                <a href="#" class="fb-btn">Login with Facebook</a>
+            </div>
+       </div>
+        <!-- JS Core -->
+<?php	echo $this->headScript();	?>
+        <script>
+			window.addEventListener("load",function() {
+				// Set a timeout...
+				setTimeout(function(){
+					// Hide the address bar!
+					window.scrollTo(0, 1);
+				}, 0);
+			});
+        </script> 
+
+    </body>
+</html>
