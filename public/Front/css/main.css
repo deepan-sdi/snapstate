@@ -66,7 +66,7 @@ h1, h2, h3, .h1, .h2, .h3	{
 	border-radius: 50px;
 }
 .jumbotron	{
-	background: url(../img/jumbotron-bg.jpg) center center no-repeat;
+	background: #1876B3 url(../img/jumbotron-bg.jpg) center center no-repeat;
 	color: #fff;
 	text-align: center;
 	height:500px;
@@ -278,6 +278,9 @@ aside.footer-widgets {
 input#navsearch	{
 	width: 188px;
 }
+input#navsearch2	{
+	width: 188px;
+}
 .footer-widgets .col-lg-3{min-height:240px;}
 .footer-widgets .btn-default{position:absolute;bottom:0;}
 .footer-widgets h2{margin-bottom:20px;}
@@ -297,6 +300,9 @@ input#navsearch	{
 	display: inline-block;
 }
 input#navsearch	{
+	width:188px;
+}
+input#navsearch2	{
 	width:188px;
 }
 .navbar-login 	{
@@ -353,6 +359,9 @@ input#navsearch	{
 input#navsearch	{
 	width: 150px;
 }
+input#navsearch2	{
+	width: 150px;
+}
 .navbar-login 	{
 	margin-right: 15px;
 	margin-top: 18px;
@@ -396,6 +405,9 @@ input#navsearch	{
 	display: inline-block;
 }
 input#navsearch	{
+	width:256px;
+}
+input#navsearch2	{
 	width:256px;
 }
 .navbar-login 	{

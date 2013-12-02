@@ -1,7 +1,8 @@
 <?php	echo $this->render('fo-header.phtml');
 		//	Session
 		use Zend\Session\Container;
-		$userSession	= new Container('user');	?>
+		$userSession	= new Container('fo_user');
+		$listingSession	= new Container('fo_listing');	?>
     <body class="home-page">
 		<div id="fb-root"></div>
 		<!-- <div id="bodydiv"> -->
@@ -10,28 +11,29 @@
         	<div class="navbar navbar-fixed-top">
             	<div class="container">
                 	<div class="navbar-header">
-                    	<a class="navbar-brand" href="#"><img src="<?php	echo SITE_IMAGE_PATH; ?>snapstate-logo.png" alt="SnapState Logo"></a> 
+                    	<a class="navbar-brand" href="/"><img src="<?php	echo SITE_IMAGE_PATH; ?>snapstate-logo.png" alt="SnapState Logo"></a> 
                         
 <?php	if(isset($userSession->userSession['_id']) && $userSession->userSession['_id'] != '') {	?>
 						<div class="navbar-login navbar-right dropdown">
-                            <a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">My Account<b class="caret"></b></a>                
+                            <a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown" version="3">My Account<b class="caret"></b></a>                
                             <ul aria-labelledby="drop3" role="menu" class="dropdown-menu">
-                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-edit"></i>Edit Profile</a></li>
+                                <li role="presentation"><a href="#" tabindex="-1" role="menuitem" data-toggle="modal" data-target="#edit_profile_popup" onclick="resetProfileForm();"><i class="fa fa-edit"></i>Edit Profile</a></li>
                                 <li class="divider" role="presentation"></li>
                                 <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-list-alt"></i>Play List</a></li>
                                 <li class="divider" role="presentation"></li>
                                 <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-video-camera"></i>Videos Watched</a></li>
                                 <li class="divider" role="presentation"></li>
-                                <li role="presentation"><a href="<?php	echo $this->url('front', array('controller' => 'index', 'action' => 'logout')); ?>" tabindex="-1" role="menuitem"><i class="fa fa-power-off"></i>Logout</a></li>
+                                <li role="presentation"><a href="<?php	echo $this->url('front', array('controller' => 'index', 'action' => 'logout')); ?>" onclick="showOverlay();" tabindex="-1" role="menuitem"><i class="fa fa-power-off"></i>Logout</a></li>
                           </ul>
                         </div>
+						
 <?php	} else {	?>
 						<div class="navbar-login navbar-right"><a class="btn btn-primary visible-lg" data-toggle="modal" data-target="#login">Login</a></div>
 <?php	}	?>
-						<form class="navbar-form navbar-left visible-lg" onsubmit="return false;">
+						<form class="navbar-form navbar-left visible-lg" method="post" id="search_form" name="search_form" action="<?php	echo $this->url('front', array('controller' => 'search', 'action' => 'search')); ?>">
                             <div class="form-group">
-                                <input type="text" id="navsearch" placeholder="search" class="form-control" name="search">
-                                <button type="submit" class="btn btn-success"></button>
+                                <input type="text" id="navsearch" placeholder="search" class="form-control" name="search" value="<?php	if(isset($listingSession->keyword) && trim($listingSession->keyword) != '') { echo $listingSession->keyword; } ?>">
+								<button type="submit" class="btn btn-success searchSubmit"></button>
                             </div>        
                         </form>
                 	</div>
@@ -56,69 +58,86 @@
                 <div class="bannerIn">
                     <h3><strong>snap</strong> yourself into state</h3>
                     <p>We put your videos first. That<br> means we don’t put ads before,<br> after, or over your videos.</p>
+<?php	if(!isset($userSession->userSession['_id']) || $userSession->userSession['_id'] == '') {	?>
                     <a href="#" class="btn btn-default" data-toggle="modal" data-target="#signup">FREE Sign up!</a>
+<?php	} ?>
                 </div>
             </div>
             <ul>
                         <li>
-                            <h1 class="active arrow-drop"><a href="javascript:void(0)" ><i class="fa fa-2x icon-friends"></i> Friends</a></h1>
-                            <ul>
-                                <li><a href="#">Reports</a></li>
-                                <li><a href="#">Search</a></li>
-                                <li><a href="#">Graphs</a></li>
-                                <li><a href="#">Settings</a></li>
-                            </ul>                        
+                            <h1 class="active"><a href="javascript:void(0)" ><i class="fa fa-2x icon-friends"></i> Friends</a></h1>
                         </li>                
                         <li>
-                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-filter"></i> Filter</a></h1>
-                            <ul>
-                                <li><a href="#">Seen: <em>Never</em></a></li>
-                                <li><a href="#">Friend: <em>Yes</em></a></li>
-                                <li><a href="#">Length: <em>&lt;5 minutes</em></a></li>
-                                <li><a href="#">Category: <em>Health</em></a></li>
-                                <li><a href="#">Ranking: <em>&gt;4 stars</em></a></li>
+                            <h1 class="arrow-drop"><a href="javascript:void(0)"><i class="fa fa-2x icon-filter"></i> Filter</a></h1>
+							<ul class="dd-sel">
+								<li>Seen:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>Never</option>	
+										<option>< week</option>
+										<option>< month</option>
+										<option>< 3 months</option>
+										<option>>3 months</option>
+									</select>
+								</span>
+								</li>
+								
+                                <li>Friend:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>Yes</option>	
+										<option>No</option>
+									</select>
+								</span>
+								</li>
+								
+								<li>Length:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>< 1 minutes</option>	
+										<option>< 2 minutes</option>
+										<option>< 5 minutes</option>
+										<option>> 5 minutes</option>
+									</select>
+								</span>
+								</li>
+								
+								<li>Category:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>Health</option>	
+										<option>Funny</option>
+										<option>Motivational</option>
+									</select>
+								</span>
+								</li>
+								
+								<li>Ranking:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>< 4 stars</option>	
+										<option>> 4 stars</option>
+									</select>
+								</span>
+								</li>
                             </ul>
                         </li>
                         <li> 
                             <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-share"></i> Share</a></h1>
-                            <ul>
-                                <li><a href="#">Current Month</a></li>
-                                <li><a href="#">Current Week</a></li>
-                                <li><a href="#">Previous Month</a></li>
-                                <li><a href="#">Previous Week</a></li>
-                                <li><a href="#">Next Month</a></li>
-                                <li><a href="#">Next Week</a></li>
-                                <li><a href="#">Team Calendar</a></li>
-                                <li><a href="#">Private Calendar</a></li>
-                                <li><a href="#">Settings</a></li>
-                          </ul>
                         </li>               
                         <li> 
                             <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-upload"></i> Contribute</a></h1>
-                            <ul>
-                                <li><a href="#">Global favs</a></li>
-                                <li><a href="#">My favs</a></li>
-                                <li><a href="#">Team favs</a></li>
-                                <li><a href="#">Settings</a></li>
-                          </ul>
                         </li>
                         <li> 
                             <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-feedback"></i> Feedback</a></h1>
-                             <ul>
-                                <li><a href="#">Global favs</a></li>
-                                <li><a href="#">My favs</a></li>
-                                <li><a href="#">Team favs</a></li>
-                                <li><a href="#">Settings</a></li>
-                             </ul>
                         </li>
                         <li> 
                             <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-like"></i> Like / Dislike</a></h1>
-                             <ul>
-                                <li><a href="#">Global favs</a></li>
-                                <li><a href="#">My favs</a></li>
-                                <li><a href="#">Team favs</a></li>
-                                <li><a href="#">Settings</a></li>
-                             </ul>
                         </li>
                     </ul>
         </aside>
@@ -133,16 +152,15 @@
                             <span class="icon-bar"></span>
                         </button>
 
-                        <a class="navbar-brand" href="#"><img src="<?php	echo SITE_IMAGE_PATH; ?>snapstate-logo@2x.png" alt="SnapState Logo"></a> 
+                        <a class="navbar-brand" href="/"><img src="<?php	echo SITE_IMAGE_PATH; ?>snapstate-logo@2x.png" alt="SnapState Logo"></a> 
 
                         <a class="navbar-search" href="#"><span class="fa fa-2x fa-search"></span> <span class="fa fa-2x fa-times"></span></a> 
                     </div>
-                    <form class="navbar-form">
+                    <form class="navbar-form" method="post" id="search_form_mini" name="search_form_mini" action="<?php	echo $this->url('front', array('controller' => 'search', 'action' => 'search')); ?>">
                         <div class="form-group">
-
                             <div class="searchSm">
-                                <input type="text" id="navsearch" placeholder="search" class="form-control" name="search">
-                                <button type="submit" class="btn btn-success searchSubmit"></button>
+                                <input type="text" id="navsearch2" placeholder="search" class="form-control" name="search" value="<?php	if(isset($listingSession->keyword) && trim($listingSession->keyword) != '') { echo $listingSession->keyword; } ?>">
+								<button type="submit" class="btn btn-success searchSubmit"></button>
                             </div>
 
                         </div>        
@@ -157,72 +175,86 @@
                         	<aside class="col-lg-3 asideNav visible-lg">
                     <ul>
                         <li>
-                            <h1 class="active arrow-drop"><a href="javascript:void(0)" ><i class="fa fa-2x icon-friends"></i> Friends</a></h1>
-                            <ul>
-                                <li><a href="#">Reports</a></li>
-                                <li><a href="#">Search</a></li>
-                                <li><a href="#">Graphs</a></li>
-                                <li><a href="#">Settings</a></li>
-                            </ul>                        
+                            <h1 class="active"><a href="javascript:void(0)" ><i class="fa fa-2x icon-friends"></i> Friends</a></h1>
                         </li>                
                         <li>
-                            <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-filter"></i> Filter</a></h1>
-                            <ul>
-                                <li><a href="#">Seen: <em>Never</em></a></li>
-                                <li><a href="#">Friend: <em>Yes</em></a></li>
-                                <li><a href="#">Length: <em>&lt;5 minutes</em></a></li>
-                                <li><a href="#">Category: <em>Health</em></a></li>
-                                <li><a href="#">Ranking: <em>&gt;4 stars</em></a></li>
+                            <h1 class="arrow-drop"><a href="javascript:void(0)"><i class="fa fa-2x icon-filter"></i> Filter</a></h1>
+							<ul class="dd-sel">
+                                <li>Seen:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>Never</option>	
+										<option>< week</option>
+										<option>< month</option>
+										<option>< 3 months</option>
+										<option>>3 months</option>
+									</select>
+								</span>
+								</li>
+								
+                                <li>Friend:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>Yes</option>	
+										<option>No</option>
+									</select>
+								</span>
+								</li>
+								
+								<li>Length:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>< 1 minutes</option>	
+										<option>< 2 minutes</option>
+										<option>< 5 minutes</option>
+										<option>> 5 minutes</option>
+									</select>
+								</span>
+								</li>
+								
+								<li>Category:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>Health</option>	
+										<option>Funny</option>
+										<option>Motivational</option>
+									</select>
+								</span>
+								</li>
+								
+								<li>Ranking:
+								<span class="drop-dwn-arr8 wid-100"> 
+									<select class="sel-box">
+										<option>Select</option>
+										<option>< 4 stars</option>	
+										<option>> 4 stars</option>
+									</select>
+								</span>
+								</li>
                             </ul>
+							
                         </li>
                         <li> 
                             <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-share"></i> Share</a></h1>
-                            <ul>
-                                <li><a href="#">Current Month</a></li>
-                                <li><a href="#">Current Week</a></li>
-                                <li><a href="#">Previous Month</a></li>
-                                <li><a href="#">Previous Week</a></li>
-                                <li><a href="#">Next Month</a></li>
-                                <li><a href="#">Next Week</a></li>
-                                <li><a href="#">Team Calendar</a></li>
-                                <li><a href="#">Private Calendar</a></li>
-                                <li><a href="#">Settings</a></li>
-                          </ul>
                         </li>               
                         <li> 
                             <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-upload"></i> Contribute</a></h1>
-                            <ul>
-                                <li><a href="#">Global favs</a></li>
-                                <li><a href="#">My favs</a></li>
-                                <li><a href="#">Team favs</a></li>
-                                <li><a href="#">Settings</a></li>
-                          </ul>
                         </li>
                         <li> 
                             <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-feedback"></i> Feedback</a></h1>
-                             <ul>
-                                <li><a href="#">Global favs</a></li>
-                                <li><a href="#">My favs</a></li>
-                                <li><a href="#">Team favs</a></li>
-                                <li><a href="#">Settings</a></li>
-                             </ul>
                         </li>
                         <li> 
                             <h1><a href="javascript:void(0)"><i class="fa fa-2x icon-like"></i> Like / Dislike</a></h1>
-                             <ul>
-                                <li><a href="#">Global favs</a></li>
-                                <li><a href="#">My favs</a></li>
-                                <li><a href="#">Team favs</a></li>
-                                <li><a href="#">Settings</a></li>
-                             </ul>
                         </li>
                     </ul>
                 </aside><!-- /Sidebar -->
-                            <div class="col-lg-9 b-left col-xs-12">
-                    <h2 class="page-title">All Videos
-                        <!--<a href="#" class="btn btn-primary tab-ind ">Login</a>-->
-                        <a href="#" class="btn btn-primary tab-ind hidden-lg" data-toggle="modal" data-target="#login">Login</a>
-                    </h2>
+                            
+				<!-- Elements are loaded from sub-herder.phtml in views -->
+				
 <?php	echo $this->content; ?>
                 </div>
                         </div>

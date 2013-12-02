@@ -4065,7 +4065,7 @@ button.close {
         
 }
 .modal-open {
-    overflow:auto
+    overflow:hidden;
 }
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
     /*margin-right:10px*/
@@ -4135,10 +4135,10 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 }
 .modal-body {
     position:relative;
-    padding:20px
+    padding:20px 10px;
 }
 .modal-footer {
-    padding:0px 20px 20px;   
+    padding:0px 10px 20px;   
     text-align:right; 
 }
 .modal-footer:before, .modal-footer:after {

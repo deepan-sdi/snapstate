@@ -9,13 +9,26 @@
 return array(
     'router' => array(
         'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-				//'type' => 'Hostname',
+            'default' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/',
-					//'route' => ':subdomain.localvestaapp.com',
-					//'route' => ':subdomain.localvestaapp.com',
+                    'route'    => '/[:slug]',
+                    'constraints' => array(
+                    'slug' => '[a-zA-Z][a-zA-Z0-9_\/-]*'
+                    ),
+                'defaults' => array(
+                    'controller'=> 'Front\Controller\Index',
+                    'action'	=> 'index',
+                    'slug'		=> 'home'
+                    ),
+                ),
+            ),
+			'home' => array(
+                //'type' => 'Zend\Mvc\Router\Http\Literal',
+				'type' => 'Hostname',
+                'options' => array(
+                    //'route'    => '/',
+					'route' => ':subdomain.sdiphp.com',
                     'defaults' => array(
                         'controller' => 'Front\Controller\Index',
                         'action'     => 'index',

@@ -32,17 +32,19 @@
 		echo  $this->headLink();	?>
         <!--[if IE 8]><link rel="stylesheet" href="<?php echo SITE_STYLE_PATH; ?>ie8.css"><![endif]-->
 		<!--[if !IE]>-->
-		<link type="text/css" rel="stylesheet" media="only screen and (max-width: 480px)" href="<?php echo SITE_STYLE_PATH; ?>small.css" />
-		<link type="text/css" rel="stylesheet" media="only screen and (min-width: 768px) and (max-width: 1024px)" href="<?php echo SITE_STYLE_PATH; ?>small.css" />
+		<link type="text/css" rel="stylesheet" media="only screen and (min-width: 320px) and (max-width: 1200px)" href="<?php echo SITE_STYLE_PATH; ?>small.css" />
 		<!--<![endif]-->
 <?php	$this->headScript()->appendFile(SITE_SCRIPT_PATH.'vendor/modernizr-2.6.2-respond-1.1.0.min.js'); ?>
+<?php	$this->headScript()->appendFile(SITE_SCRIPT_PATH.'vendor/jquery-1.10.1.min.js');	?>
 <?php	echo $this->headScript();	?>
-<?php	$this->headScript()->appendFile(SITE_SCRIPT_PATH.'vendor/jquery-1.10.1.min.js');
-		$this->headScript()->appendFile(SITE_SCRIPT_PATH.'vendor/bootstrap.min.js');
+<?php	$this->headScript()->appendFile(SITE_SCRIPT_PATH.'vendor/bootstrap.min.js');
 		$this->headScript()->appendFile(SITE_SCRIPT_PATH.'mobile.js');
 		$this->headScript()->appendFile(SITE_SCRIPT_PATH.'main.js');
-		$this->headScript()->appendFile(SITE_SCRIPT_PATH.'front.js');	?>
+		$this->headScript()->appendFile(SITE_SCRIPT_PATH.'front.js');
+		$this->headScript()->appendFile(SITE_SCRIPT_PATH.'ajaxfileupload.js');	?>
+<?php	//echo $this->headScript();	?>
 		<style type="text/css">
 			div.fb_dialog_advanced+div.fb_dialog_advanced { top:50px !important; }
 		</style>
+		
 	</head>

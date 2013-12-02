@@ -1,0 +1,64 @@
+<div class="col-lg-9 b-left col-xs-12">
+<?php	//	Session
+		use Zend\Session\Container;
+		$userSession	= new Container('fo_user');
+		
+		if(isset($userSession->userSession['_id']) && $userSession->userSession['_id'] != '') {	?>
+	<div class="mobil-inv clearfix visible-xs">
+		<div class="clearfix F-left"><a data-toggle="modal" data-target="#invite" class="btn invi-btn">Invite Friends </a></div>  
+		<div class="navbar-login navbar-right dropdown F-right">
+			<a class="btn btn-primary dropdown-toggle tab-fri" href="#" data-toggle="dropdown" version="1">My Account<b class="caret"></b></a>                
+			<ul aria-labelledby="drop3" role="menu" class="dropdown-menu">
+				<li role="presentation"><a href="#" tabindex="-1" role="menuitem" data-toggle="modal" data-target="#edit_profile_popup" onclick="resetProfileForm();"><i class="fa fa-edit"></i>Edit Profile </a></li>
+				<li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-list-alt"></i>Play List</a></li>
+				<li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-video-camera"></i>Videos Watched</a></li>
+				<li class="divider" role="presentation"></li>
+				<li role="presentation"><a href="<?php	echo $this->url('front', array('controller' => 'index', 'action' => 'logout')); ?>" onclick="showOverlay();" tabindex="-1" role="menuitem"><i class="fa fa-power-off"></i>Logout</a></li>
+			</ul>
+		</div>   
+	</div>
+<?php	} else { ?>        
+	<!-- Mobile -->
+	<div class="mobil-inv clearfix visible-xs">
+		<div class="navbar-login navbar-right dropdown F-right open">
+			<a href="#" class="btn btn-primary tab-ind hidden-lg tab-fri" data-toggle="modal" data-target="#login">Login</a>             
+		</div>                                       
+	</div>
+<?php	} ?>
+
+<?php	//if(isset($controller) && $controller != 'search' && isset($action) && $action != 'view-video') {	
+		//echo $controller.'==='.$action; ?>
+		<h2 class="page-title <?php	if(isset($controller) && $controller == 'Front\Controller\Search' && isset($action) && $action == 'view-video') { ?>hidden-lg hidden-xs<?php } ?>">
+<?php		if(isset($controller) && $controller == 'Front\Controller\Search' && isset($action) && $action == 'search') {	?>
+		Search Result - <span style="color:#ff934f;" id="video_count">videos found</span>
+<?php		} else if(isset($controller) && $controller == 'Front\Controller\Search' && isset($action) && $action == 'view-recommended') { ?>
+		Recommended Videos
+<?php		} else if(isset($controller) && $controller == 'Front\Controller\Search' && isset($action) && $action == 'view-watched') { ?>
+		Videos Watched
+<?php		} else if(isset($controller) && $controller == 'Front\Controller\Friends' && isset($action) && $action == 'friends') { ?>
+		Friends
+<?php		} else if(isset($controller) && $controller == 'Front\Controller\Index') {	?>
+		All Videos
+<?php		}  ?>
+
+<?php	if(isset($userSession->userSession['_id']) && $userSession->userSession['_id'] != '') {	?>
+        <div class="navbar-login navbar-right dropdown hidden-lg hidden-xs">
+			<a class="btn btn-primary dropdown-toggle tab-fri" href="#" data-toggle="dropdown" version="2">My Account<b class="caret"></b></a>                
+	        <ul aria-labelledby="drop3" role="menu" class="dropdown-menu">
+	        	<li role="presentation"><a href="#" tabindex="-1" role="menuitem" data-toggle="modal" data-target="#edit_profile_popup" onclick="resetProfileForm();"><i class="fa fa-edit"></i>Edit Profile </a></li>
+	            <li class="divider" role="presentation"></li>
+	            <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-list-alt"></i>Play List</a></li>
+	            <li class="divider" role="presentation"></li>
+	            <li role="presentation"><a href="#" tabindex="-1" role="menuitem"><i class="fa fa-video-camera"></i>Videos Watched</a></li>
+	            <li class="divider" role="presentation"></li>
+	            <li role="presentation"><a href="<?php	echo $this->url('front', array('controller' => 'index', 'action' => 'logout')); ?>" onclick="showOverlay();" tabindex="-1" role="menuitem"><i class="fa fa-power-off"></i>Logout</a></li>
+			</ul>
+		</div>
+		<a href="#" class="btn btn-primary invi-btn hidden-xs" data-toggle="modal" data-target="#invite">Invite Friends</a>
+<?php	} else { ?>
+			
+			<!-- IPAD -->
+        	<a href="#" class="btn btn-primary tab-ind hidden-lg hidden-xs" data-toggle="modal" data-target="#login">Login</a>
+<?php	} ?>
+	</h2>
+<?php	//} ?>

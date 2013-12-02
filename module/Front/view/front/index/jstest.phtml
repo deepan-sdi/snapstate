@@ -1,0 +1,48 @@
+<!-- <link rel="stylesheet" href="/Front/js/lib/themes/classic.css" id="theme_base">
+<link rel="stylesheet" href="/Front/js/lib/themes/classic.date.css" id="theme_date">
+<body>
+	<input id="date_demo__events" class="fieldset__input  picker__input " readonly="" type=text placeholder="Open your console and try me&hellip;">
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="/Front/js/lib/picker.js"></script>
+<script src="/Front/js/lib/picker.date.js"></script>
+<script src="/Front/js/lib/picker.time.js"></script>
+<script src="/Front/js/lib/legacy.js"></script>
+<script src="/Front/js/lib/main.js"></script>
+</body> -->
+<script type="text/javascript" src="/Front/js/vendor/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="/Front/js/ajaxfileupload.js"></script>
+<form name="form" action="" method="POST" enctype="multipart/form-data">
+<input type="file" id="user_photo" name="user_photo">
+<input type="button" onclick="return ajaxFileUpload();" value="test">
+</form>
+<script type="text/javascript">
+	function ajaxFileUpload()	{
+		/*	$("#loading").ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});	*/
+
+		$.ajaxFileUpload({
+			url:'/front/index/profile-photo',
+			secureuri:false,
+			fileElementId:'user_photo',
+			dataType: 'json',
+			data:{name:'logan', id:'id'},
+			success: function (data, status) {
+				if(typeof(data.error) != 'undefined') {
+					if(data.error != '') {
+						alert(data.error);
+					} else {
+						alert(data.msg);
+					}
+				}
+			}, error: function (data, status, e) {
+				alert(e);
+			}
+		});
+		return false;
+	}
+</script>

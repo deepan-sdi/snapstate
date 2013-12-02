@@ -1221,9 +1221,9 @@ class MediaController extends AbstractActionController
 				$formPostData['dateapproved']	= (isset($formPostData['media_approved']) && $formPostData['media_approved'] == 1) ? date('m/d/Y H:i:s') : '00/00/0000 00:00:00';
 				$formPostData['approveduser']	= (isset($formPostData['media_approved']) && $formPostData['media_approved'] == 1) ? ADMIN_USER_ID : '';
 				$results	= $this->updateMedia($formPostData);
+				$this->deleteMediaTags($mediaid);
 				
 				if($mediaid != '' && isset($formPostData['media_tags']) && is_array($formPostData['media_tags']) && count($formPostData['media_tags']) > 0) {
-					$this->deleteMediaTags($mediaid);
 					$this->saveMediaTags($formPostData['media_tags'], $mediaid);
 				}
 				if($results) {

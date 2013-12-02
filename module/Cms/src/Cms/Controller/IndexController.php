@@ -59,7 +59,7 @@ class IndexController extends AbstractActionController
 	public function selectUser($conn, $username, $password)
 	{
 		$collection	= $conn->snapstate->users;
-		$document	= array('user_email' => $username, 'user_password' => $password, 'group_id' => '1');
+		$document	= array('user_email' => new \MongoRegex('/^' . preg_quote(trim($username)) . '$/i'), 'user_password' => $password, 'group_id' => '1');
 		$cursor		= $collection->find($document);
 		return $cursor;
 	}
@@ -71,7 +71,7 @@ class IndexController extends AbstractActionController
 	public function selectUserByEmail($conn, $email)
 	{
 		$collection	= $conn->snapstate->users;
-		$document	= array('user_email' => $email);
+		$document	= array('user_email' => new \MongoRegex('/^' . preg_quote(trim($email)) . '$/i'));
 		$cursor		= $collection->find($document);
 		return $cursor;
 	}

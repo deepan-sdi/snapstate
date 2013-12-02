@@ -9,12 +9,26 @@
 return array(
     'router' => array(
         'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-				//'type' => 'Hostname',
+            'default' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/',
-					//'route' => ':subdomain.localvestaapp.com',
+                    'route'    => '/[:slug]',
+                    'constraints' => array(
+                    'slug' => '[a-zA-Z][a-zA-Z0-9_\/-]*'
+                    ),
+                'defaults' => array(
+                    'controller'=> 'Front\Controller\Index',
+                    'action'	=> 'index',
+                    'slug'		=> 'home'
+                    ),
+                ),
+            ),
+			'home' => array(
+                //'type' => 'Zend\Mvc\Router\Http\Literal',
+				'type' => 'Hostname',
+                'options' => array(
+                    'route' => ':subdomain.sdiphp.com',
+					//'route'    => '/',
 					//'route' => ':subdomain.localvestaapp.com',
                     'defaults' => array(
                         'controller' => 'Front\Controller\Index',
@@ -205,6 +219,32 @@ return array(
                     ),
                 ),
             ),
+			'fbreturn' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/fbreturn/[:slug]',
+                    'constraints' => array(
+	                    'slug' => '[a-zA-Z][a-zA-Z0-9_\/-]*'
+                    ),
+	                'defaults' => array(
+                    	'controller'=> 'Front\Controller\Index',
+	                    'action'	=> 'fbreturn',
+    	                'slug'		=> '[a-zA-Z][a-zA-Z0-9_\/-]*'
+                    ),
+                ),
+            ),
+			'activate' => array(
+                'type'    => 'Segment',
+                'options' => array(
+					'route'    => '/activate[/[:id]]',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Front\Controller',
+                        'controller'    => 'Index',
+                        'action'        => 'activate',
+						'id'			=> '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -232,14 +272,15 @@ return array(
 	'controllers' => array(
         'invokables' => array(
             'Front\Controller\Index'	=> 'Front\Controller\IndexController',
-			'Front\Controller\User'	=> 'Front\Controller\UserController',
-			'Front\Controller\Media'	=> 'Front\Controller\MediaController',
+			'Front\Controller\Search'	=> 'Front\Controller\SearchController',
+			'Front\Controller\Friends'	=> 'Front\Controller\FriendsController',
         ),
     ),
 	
 	'view_helpers' => array(
 		'invokables' => array(
-			//'datetime'		=> 'Cms\View\Helper\Datetime',
+			'text'		=> 'Front\View\Helper\Text',
+			'customurl'	=> 'Front\View\Helper\Customurl',
 		),  
 	),
     'view_manager'					=> array(

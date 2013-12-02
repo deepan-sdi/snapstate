@@ -27,3 +27,15 @@
 }
 
 #fb-root { position:fixed; top:10%; }
+
+.folargeviews {
+	display: block;
+    float: none !important;
+    margin-left: 0 !important;
+    text-align: center
+}
+.fosmallviews {
+    float: none;
+    text-align: center;
+}
+.fb-comments, .fb-comments span[style], .fb-comments iframe[style] {width: 100% !important;}

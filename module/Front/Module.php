@@ -18,7 +18,6 @@ use Zend\Mvc\MvcEvent;
 
 //	Models
 use Front\Model\Users;
-//use Front\Model\Usermo;
 use Front\Model\UsersTable;
 
 use Front\Model\Group;
@@ -32,6 +31,14 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
 		$eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+		$e->getApplication()->getEventManager()->attach(
+			'dispatch',
+			function($e) {
+				$routeMatch = $e->getRouteMatch();
+				$viewModel = $e->getViewModel();
+				$viewModel->setVariable('controller', $routeMatch->getParam('controller'));
+				$viewModel->setVariable('action', $routeMatch->getParam('action'));
+			}, -100);
     }
 	
     public function getConfig()
@@ -72,6 +79,14 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
 	{
 	   return array(
 	         'factories' => array(
+				'text' => function($sm) {
+                    $helper = new View\Helper\Text;
+                    return $helper;
+                },
+				'customurl' => function($sm) {
+                    $helper = new View\Helper\Customurl;
+                    return $helper;
+                },
 				'Requesthelper' => function($sm){
 				   $helper = new View\Helper\Requesthelper;
 				   $request = $sm->getServiceLocator()->get('Request');

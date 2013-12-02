@@ -1,3 +1,9 @@
+<?php	//	Session
+		use Zend\Session\Container;
+		$userSession	= new Container('fo_user');
+		if(!MAILER) {
+			//echo '<pre>===>'; print_r((string)$userSession->userSession['_id']); echo '</pre>';
+		}	?>
 <footer>
             <div class="footer-widgets">
 
@@ -58,16 +64,205 @@
                 </div>
             </div>
         </footer>
-
-                </div>
-            </main>
-        </div>
+			 
+			 </div>
+            </div></main>
+            </div>
+		
+	
+		
+	
             
-        </div>
+        
+            
+        
 <!-- Back to top -->
         <div id="back-top"><a href="#top"><span></span></a></div>
        <!-- Popup -->
+<?php	if(isset($userSession->userSession['_id']) && $userSession->userSession['_id'] != '') {	?>
+	   <link rel="stylesheet" href="/Front/js/lib/themes/default.css" id="theme_base">
+	   <link rel="stylesheet" href="/Front/js/lib/themes/default.date.css" id="theme_date">
        
+	   <div id="edit_profile_popup" class="modal hide-in fade ind-pop-h2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <form name="edit_profile_form" id="edit_profile_form" method="post" enctype="multipart/form-data">
+		  <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#120;</button>
+                    <h3 id="myModalLabel">Edit Profile</h3>
+                </div>
+                <div class="modal-body ind-pop  pop-pad-mob" id="edit_profile_modal">
+					
+					<div class="row">
+					<?php	$userPhoto	= (isset($userSession->userSession['user_photo']) && trim($userSession->userSession['user_photo']) != '') ? '/Front/users/photo/thumb/'.$userSession->userSession['user_photo'] : '/Front/img/no_photo.png'; ?>
+						<div class="col-md-12">
+							<div class="avatar-img">
+								<img src="<?php	echo $userPhoto; ?>" id="user_avatar">	
+							</div>		
+						</div>
+						<div class="col-md-6 col-md-offset-3 dis-b">
+						  <div class="mar-b15">	
+							<input type="file" id="user_photo" name="user_photo" onchange="showPreview(this);" class="inp-nomar wid270">		
+							<input type="Hidden" id="user_photo_name" name="user_photo_name" value="<?php if(isset($userSession->userSession['user_photo']) && trim($userSession->userSession['user_photo']) != '') { echo $userSession->userSession['user_photo']; } ?>">
+							<span class="img-for">File size Max. 2MB. It can be jpg, gif, png & bmp</span>
+						</div>			
+					  </div>			
+					</div>
+				
+				
+                    <div class="row">
+                        <div class="col-md-6">
+							<label class="lab-style">First Name</label>
+                            <input type="text" value="<?php	if(isset($userSession->userSession['user_firstname']) && $userSession->userSession['user_firstname'] != '') { echo trim($userSession->userSession['user_firstname']); } ?>" placeholder="First Name" id="user_fname" name="user_fname" class="mar-b15">
+                         </div>                  
+                        <div class="col-md-6">
+							<label class="lab-style">Last Name</label>
+                            <input type="text" value="<?php	if(isset($userSession->userSession['user_lastname']) && $userSession->userSession['user_lastname'] != '') { echo trim($userSession->userSession['user_lastname']); } ?>" placeholder="Last Name" id="user_lname" name="user_lname" class="mar-b15">
+                        </div>
+                    </div>
+					<div class="row">
+                        <div class="col-md-6">
+							<label class="lab-style">Date of Birth</label>
+                            <input type="text" value="<?php	if(isset($userSession->userSession['user_dob']) && $userSession->userSession['user_dob'] != '') { echo trim($userSession->userSession['user_dob']); } else { echo "Date of Birth"; } ?>" id="user_dob" name="user_dob" class="mar-b15 fieldset__input">
+							<i class="fa fa-calendar fa-1 cal-pos"></i>
+                         </div>                  
+                        <div class="col-md-6">
+							<label class="lab-style">Gender</label>                           
+							<div class="drop-dwn-arr2">
+							<select class="mar-b15" name="user_gender" id="user_gender">
+								<option value="0">Select Gender</option>
+								<option value="1" <?php	if(isset($userSession->userSession['user_gender']) && $userSession->userSession['user_gender'] == '1') { echo "selected"; } ?>>Male</option>
+								<option value="2" <?php	if(isset($userSession->userSession['user_gender']) && $userSession->userSession['user_gender'] == '2') { echo "selected"; } ?>>Female</option>
+							</select>
+							</div>
+                        </div>
+                    </div>
+					<div class="row">                
+                         <div class="col-md-12">
+							<label class="lab-style">Email Address</label>
+                            <input type="text" value="<?php	if(isset($userSession->userSession['user_email']) && $userSession->userSession['user_email'] != '') { echo $userSession->userSession['user_email']; } ?>" placeholder="Email Address" id="user_email" name="user_email" class="mar-b15">
+                         </div>                 
+                  </div>
+                    <div class="row">                
+                        <div class="col-md-6">
+							<label class="lab-style">User Group</label>
+                            <input type="text" disabled value="<?php	if(isset($userSession->userSession['user_groupname']) && $userSession->userSession['user_groupname'] != '') { echo $userSession->userSession['user_groupname']; } ?>" class="mar-b15">
+                        </div>            
+                    </div>                   
+                </div>  
+                <div class="modal-footer">
+                    <div class="mar-b15"> 
+						<input type="Button" data-dismiss="modal" data-toggle="modal" data-target="#change_password" class="chan-pas" value="Change Password">
+                        <input type="Button" class="btn login-btn" value="Submit" onclick="validateEditProfile();">
+                        <input type="Button" data-dismiss="modal" class="btn cancel-btn " value="Cancel">
+                    </div>                   
+               </div>
+             </div>
+         </div>
+		 </form>
+       </div>
+		<script src="/Front/js/jquery-1.10.2.min.js"></script>
+		<script src="/Front/js/lib/picker.js"></script>
+		<script src="/Front/js/lib/picker.date.js"></script>
+		<script src="/Front/js/lib/picker.time.js"></script>
+		<script src="/Front/js/lib/legacy.js"></script>
+		<script src="/Front/js/lib/main.js"></script>
+		<p id="ses_firstname" style="display:none;"><?php	if(isset($userSession->userSession['user_firstname']) && $userSession->userSession['user_firstname'] != '') { echo $userSession->userSession['user_firstname']; } ?></p>
+		<p id="ses_lastname" style="display:none;"><?php	if(isset($userSession->userSession['user_lastname']) && $userSession->userSession['user_lastname'] != '') { echo $userSession->userSession['user_lastname']; } ?></p>
+		<p id="ses_email" style="display:none;"><?php	if(isset($userSession->userSession['user_email']) && $userSession->userSession['user_email'] != '') { echo $userSession->userSession['user_email']; } ?></p>
+		<p id="ses_dob" style="display:none;"><?php	if(isset($userSession->userSession['user_dob']) && $userSession->userSession['user_dob'] != '') { echo $userSession->userSession['user_dob']; } else { echo "Date of birth"; } ?></p>
+		<p id="ses_gender" style="display:none;"><?php	if(isset($userSession->userSession['user_gender']) && $userSession->userSession['user_gender'] != '') { echo $userSession->userSession['user_gender']; } else { echo '0'; } ?></p>
+		<p id="ses_photo" style="display:none;"><?php	echo $userPhoto; ?></p>
+		
+		<!-- Change Password -->
+		<div id="change_password" class="modal hide-in fade ind-pop-h2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<form id="change_password_form" name="change_password_form" method="post" style="height:100%;">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+		        	<div class="modal-header">
+		            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="resetChangePasswordForm();">&#120;</button>
+		                <h3 id="myModalLabel">Change Password</h3>
+					</div>
+		            <div class="modal-body ind-pop  pop-pad-mob" id="change_password_modal">
+		                <div class="row">                
+		                	<div class="col-md-12">
+		                    	<input type="password" id="current_password" name="current_password" placeholder="Current Password" class="mar-b15" maxlength="50">
+							</div>
+						</div>
+		                <div class="row">
+		                	<div class="col-md-6">
+		                    	<input type="password" id="new_password" name="new_password" placeholder="New Password" class="mar-b15" maxlength="30">
+							</div>                  
+		                    <div class="col-md-6">
+		                    	<input type="password" id="new_confirm_password" name="new_confirm_password" placeholder="Confirm Password" maxlength="30">
+							</div>
+						</div>
+					</div>  
+		            <div class="modal-footer">
+		            	<div class="mar-b15"> 
+		                	<input type="Button" class="btn login-btn" onclick="validateChangePasswordForm();" value="Save">
+			        		<input type="Button" data-dismiss="modal" class="btn cancel-btn " onclick="resetChangePasswordForm();" value="Cancel">
+						</div>
+					</div>
+				</div>
+			</div>   
+			</form>  
+		</div>
+		<!-- End -->
+		<div id="invite" class="modal hide-in fade fri-pp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#120;</button>
+                    <h3 id="myModalLabel">Invite Friends</h3>
+                </div>
+                <div class="modal-body fri-cpart">
+                    <div class="row">
+                        <div class="col-md-5 clearfix">
+                            <button type="button" class="fac-bg" data-dismiss="modal" onclick='inviteViaFB("<?php echo FB_APPID; ?>", "<?php echo FB_INVITATION_MSG; ?>", "<?php echo REDIRECT_URL.'/fbreturn/'; ?>");' style="cursor:pointer;"><i class="fa fa-facebook fa-3"></i></button>
+                            <p onclick='inviteViaFB("<?php echo FB_APPID; ?>", "<?php echo FB_INVITATION_MSG; ?>", "<?php echo REDIRECT_URL.'/fbreturn/'; ?>");' style="cursor:pointer;">Invite Facebook Friends</p>
+                         </div>
+                        <div class="col-md-2 clearfix txt-ali"><span class="or-bg">Or</span></div>
+                        <div class="col-md-5 clearfix">
+                             <button type="button" class="mail-bg" data-dismiss="modal" data-toggle="modal" data-target="#email-inv" style="cursor:pointer;"><i class="fa fa-envelope fa-3"></i></button>
+                            <p data-dismiss="modal" data-toggle="modal" data-target="#email-inv" style="cursor:pointer;">Invite Friends Via email</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+       </div>
+		
+		<div id="email-inv" class="modal hide-in fade fri-pp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<form name="email_form" id="email_form" method="post">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#120;</button>
+							<h3 id="myModalLabel">Invite Friends Via email</h3>
+						</div>
+						<div class="modal-body fri-cpart" id="new_email">
+							<div class="row mar-b10">
+								<div class="col-md-10 col-xs-10 clearfix">
+									<input type="text" placeholder="Enter Email Address" id="add_email" value="" class="wid100">
+								</div>
+								<div class="col-md-2 col-xs-2 clearfix">
+									<button class="plus-btn" onclick="addEmail();return false;">+</button>
+								</div>                        
+							</div>
+							
+						</div>
+						<div class="modal-footer">
+							<div class="mar-b15 tex-cen"> 
+								<button class="btn login-btn" onclick="return false;">Submit</button>
+								<button class="btn cancel-btn " data-dismiss="modal" onclick="resetEmailInvitation();return false;">Cancel</button>              
+							</div>                    
+						</div>    
+					</div>
+				</div>
+			</form>
+		</div>
+<?php	} else { ?>
        <div id="login" class="modal hide-in fade ind-pop-h" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<form method="post" name="login_form" id="login_form" style="height:100%;">
 				<div class="modal-dialog">
@@ -92,13 +287,14 @@
 		
 						<div class="modal-footer">
 							<div class="mar-b15">
-								<a href="#" class="forgot" data-dismiss="modal" data-toggle="modal" data-target="#forget-password" title="Forget Password?" onclick="resetForgetPasswordForm();resetLoginForm();">Forget Password?</a>
+							
+								<a href="#" class="forgot forgetalign" data-dismiss="modal" data-toggle="modal" data-target="#forget-password" title="Forget Password?" onclick="resetForgetPasswordForm();resetLoginForm();">Forget Password?</a>
 								<input type="Button" class="btn login-btn" id="login_button" value="Login" onclick="validateLoginForm();">
 								<input type="Button" data-dismiss="modal" class="btn cancel-btn " value="Cancel" onclick="resetLoginForm();">
 							</div>
 							<div class="fb-login">
 								<span class="or-bg">Or</span>                
-								<a href="#" class="fb-btn" data-dismiss="modal" onclick='fblogin();'>Login with Facebook</a><!-- loginWithFB("<?php //echo FB_APPID; ?>", "<?php //echo FB_RETURN_URL; ?>", "<?php //echo PROTOCOL; ?>"); -->
+								<a href="#" class="fb-btn" data-dismiss="modal" onclick="javascript:facebookLogin();">Login with Facebook</a><!-- loginWithFB("<?php //echo FB_APPID; ?>", "<?php //echo FB_RETURN_URL; ?>", "<?php //echo PROTOCOL; ?>"); -->
 							</div>
 						</div>
 					</div>   
@@ -144,7 +340,7 @@
 						</div>
 		                <div class="fb-login">
 		                	<span class="or-bg">Or</span>                
-							<a href="#" class="fb-btn" data-dismiss="modal" onclick='fblogin();'>Login with Facebook</a><!-- loginWithFB("<?php //echo FB_APPID; ?>", "<?php //echo FB_RETURN_URL; ?>", "<?php //echo PROTOCOL; ?>"); -->
+							<a href="#" class="fb-btn" data-dismiss="modal" onclick="javascript:facebookLogin();">Login with Facebook</a><!-- loginWithFB("<?php //echo FB_APPID; ?>", "<?php //echo FB_RETURN_URL; ?>", "<?php //echo PROTOCOL; ?>"); -->
 						</div>
 					</div>
 				</div>
@@ -169,7 +365,7 @@
 					</div>  
 		            <div class="modal-footer">
 		            	<div class="mar-b15"> 
-		                	<a href="#" class="forgot" title="Back to Login" data-dismiss="modal" data-toggle="modal" data-target="#login" onclick="resetLoginForm();resetForgetPasswordForm();">Back to Login</a>
+		                	<a href="#" class="forgot forgetalign" title="Back to Login" data-dismiss="modal" data-toggle="modal" data-target="#login" onclick="resetLoginForm();resetForgetPasswordForm();">Back to Login</a>
 			                <input type="Button" class="btn login-btn" id="login_button" value="Reset" onclick="validateForgerPasswordForm();">
 			                <input type="Button" data-dismiss="modal" class="btn cancel-btn " value="Cancel" onclick="resetForgetPasswordForm();">
 						</div>
@@ -178,14 +374,14 @@
 			</div>   
 			</form>  
 		</div>
-		
+<?php	}	?>
 		<a href="#" id="confirmation_modal" class="forgot" data-dismiss="modal" data-toggle="modal" data-target="#confirmation"></a>
 		<div id="confirmation" class="modal hide-in fade ind-pop-h4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 		    	<div class="modal-content">
 		        	<div class="modal-header">
 		            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="resetRegistrationForm();">&#120;</button>
-		                <h3 id="myModalLabel">Congratulations</h3>
+		                <h3 id="myModalLabel2">Congratulations</h3>
 					</div>
 		            <div class="modal-body ind-pop  pop-pad-mob">
 		            	<div class="row">
@@ -227,9 +423,28 @@
 </script> 
 <!-- To trigger the events while loading a page -->
 <script type="text/javascript">
+	
 	$(window).load(function(){
 		$('#bodyDiv').css('display', 'block');
+		$('.picker__select--month').before("<div class='drop-dwn-arr3'>");
+		$('.picker__select--month').after("</div>");
+		$('.picker__select--year').before("<div class='drop-dwn-arr4'>");
+		$('.picker__select--year').after("</div>");
 	});
+	
+	$('.picker__select--month').change(function(){
+		$('.picker__select--month').before("<div class='drop-dwn-arr3'>");
+		$('.picker__select--month').after("</div>");
+		$('.picker__select--year').before("<div class='drop-dwn-arr4'>");
+		$('.picker__select--year').after("</div>");
+	});
+	$('.picker__select--year').change(function(){
+		$('.picker__select--month').before("<div class='drop-dwn-arr3'>");
+		$('.picker__select--month').after("</div>");
+		$('.picker__select--year').before("<div class='drop-dwn-arr4'>");
+		$('.picker__select--year').after("</div>");
+	});
+	
 	//	Start: Pre-loader
 	$(window).bind(function(){
 		$('.progress-indicator').css( 'display', 'block' );
@@ -239,29 +454,166 @@
 		}, 50 );
 	});
 	//	End: Pre-loader
+	
 	//	Start: Login with Facebook 
+	
+	var APP_ID="<?php echo FB_APPID; ?>";
+	
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId      : '353997868079462',
-		    status     : true,
-			cookie     : true,
-			xfbml      : true
+			  appId  : APP_ID,
+			  status : true,
+			  cookie : false,
+			  xfbml  : true
 		});
-		
-		FB.Canvas.scrollTo(0,0);
 	};
 	
-	(function(d){
-		var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-		if (d.getElementById(id)) {return;}
-		js = d.createElement('script'); js.id = id; js.async = true;
-		js.src = "//connect.facebook.net/en_US/all.js";
-		ref.parentNode.insertBefore(js, ref);
-	}(document));
+	function initFacebook() {
+		FB.init({
+		  appId  : APP_ID,
+		  status : true,
+		  cookie : false,
+		  xfbml  : true
+		});
+		FB.getLoginStatus(onFacebookLoginStatus);
+	};
+
+	(function() {
+		var e = document.createElement('script');
+		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+		e.async = true;
+		document.getElementById('fb-root').appendChild(e);
+		}());
+
+	var facebookLoginWindow;
+	var loginWindowTimer;
+	
+	function facebookLogin() {
+		var popupWidth=500;
+		var popupHeight=300;
+		var xPosition=($(window).width()-popupWidth)/2;
+		var yPosition=($(window).height()-popupHeight)/2;
+		var loginUrl="http://www.facebook.com/dialog/oauth/?"+
+			"scope=email,user_activities,user_likes,publish_actions,read_stream,publish_stream&"+
+			"client_id="+APP_ID+"&"+
+			"redirect_uri=<?php echo REDIRECT_URL; ?>/fbreturn/&"+
+			"response_type=token&"+
+			"display=popup";
+		
+		facebookLoginWindow=window.open(loginUrl, "LoginWindow", 
+			"location=1,scrollbars=1,"+
+			"width="+popupWidth+",height="+popupHeight+","+
+			"left="+xPosition+",top="+yPosition);
+		
+		loginWindowTimer=setInterval(onTimerCallbackToCheckLoginWindowClosure, 1000);
+	}
+
+	function onTimerCallbackToCheckLoginWindowClosure() { 
+		if (facebookLoginWindow.closed) {
+			clearInterval(loginWindowTimer);
+			initFacebook();
+		}
+    }
+	
+	function onFacebookLoginStatus(response) {
+		showOverlay();
+		if (response.status=="connected" && response.authResponse)
+		{
+			FB.api("/me", onMyInfoLoaded);
+		} else {
+			hideOverlay();
+		}
+	}  
+	
+	function onMyInfoLoaded(response) {
+		if(response.id != undefined && response.email != undefined && response.first_name != undefined && response.last_name != undefined) {
+			var user_email		= response.email,
+				user_firstname	= response.first_name,
+				user_lastname	= response.last_name,
+				user_fbuid		= response.id;
+				
+				$.post('/front/index/validate-fblogin', {user_fbuid: user_fbuid, user_email: user_email, user_firstname: user_firstname, user_lastname: user_lastname}, function(data){
+					if($.trim(data) == 1) {
+						window.location.reload();
+					} else {
+						hideOverlay();
+						alert('Authentication Failed. Please try again.');
+					}
+				});
+		} else {
+			console.log("Error!");
+		}
+	}
+
 	//	End: Login with Facebook 
-</script>
-<script>
-<?php	if(isset($_GET['code']) && $_GET['code'] == 1) { ?>
-	window.close();
+	
+	<?php	if(isset($_GET['activate']) && $_GET['activate'] == 1) { ?>
+		$('#myModalLabel2').html('Account Activation');
+		$('#message_content').html('Congratulations! Your account has been activated. Have Fun!<br><br>Please login with your email address and password.');
+		$('#confirmation_modal').click();
+		$('#confirmation').click(function(){
+			showOverlay();
+			location.href	= '/';
+		});
+	<?php	} else if(isset($_GET['activate']) && $_GET['activate'] == 0) { ?>
+		$('#myModalLabel2').html('Account Activation');
+		$('#message_content').html('Sorry! Your account has not been activated.<br><br>Please contact our support team.');
+		$('#confirmation_modal').click();
+		$('#confirmation').click(function(){
+			showOverlay();
+			location.href	= '/';
+		});
+	<?php	} ?>
+<?php	$controllerArray	= array('Front\Controller\Index-index', 'Front\Controller\Search-search');
+		if(in_array($this->controller.'-'.$this->action, $controllerArray)) { ?>
+			loadVideos(0);
+<?php	} else if($this->controller == 'Front\Controller\Search' && $this->action == 'view-recommended') { ?>
+			loadRecommended(0);
+<?php	} else if($this->controller == 'Front\Controller\Search' && $this->action == 'view-watched') { ?>
+			loadWatched(0);
 <?php	} ?>
+</script>
+
+<?php	if(!MAILER)	{
+			//echo ">>+++>>".$this->controller.'--'.$this->action;
+		}	?>
+<script>
+	function showPreview(input) {
+		var user_photo		= $('#user_photo');
+		var msg				= '',
+			error_flag		= 0;
+		
+		$('.error_msg').remove();
+		$('.success_msg').remove();
+		user_photo.removeClass('error_field');
+		
+		if($('#user_photo')[0].files[0].size > 2097152) {
+			msg	= 'Photo should not exceed 2MB.';
+			user_photo.addClass('error_field');
+			user_photo.parent().append("<div class='error_msg'>"+msg+"</div>");
+			error_flag	= 1;
+			return false;
+		}
+		var ext = $('#user_photo').val().split('.').pop().toLowerCase();
+		if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		    msg	= 'Invalid extension.';
+			user_photo.addClass('error_field');
+			user_photo.parent().append("<div class='error_msg'>"+msg+"</div>");
+			error_flag	= 1;
+			return false;
+		}
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+								var f = input.files[0]; 
+								if(f.type != 'image/jpeg' && f.type != 'image/jpg' && f.type != 'image/gif' && f.type != 'image/png') {
+									//alert("Site Logo must be JPG, GIF or PNG");
+									return false;
+								}
+								$('#user_avatar').attr('src', e.target.result).width(100).height(100);
+								//$('#user_avatar').val(e.target.result);
+							};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 </script>

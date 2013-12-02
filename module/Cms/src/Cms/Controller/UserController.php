@@ -52,7 +52,7 @@ class UserController extends AbstractActionController
 	public function selectUser($conn, $username, $password)
 	{
 		$collection	= $conn->snapstate->users;
-		$document	= array('user_email' => $username, 'user_password' => $password, 'group_id' => '1');
+		$document	= array('user_email' => new \MongoRegex('/^' . preg_quote(trim($username)) . '$/i'), 'user_password' => $password, 'group_id' => '1');
 		$cursor		= $collection->find($document);
 		return $cursor;
 	}
@@ -217,10 +217,10 @@ class UserController extends AbstractActionController
 		$collection	= $conn->snapstate->users;
 		$userSession = new Container('user');
 		if($opt == 1) {
-			$results	= $collection->find(array('user_email' => trim($formData['user_email'])));
+			$results	= $collection->find(array('user_email' => new \MongoRegex('/^' . preg_quote(trim($formData['user_email'])) . '$/i')));
 		} else if($opt == 2) {
 			$mongoID	= new \MongoID(trim($formData['_id']));
-			$document	= array('_id'	=> array('$ne' => $mongoID), 'user_email' => trim($formData['user_email']));
+			$document	= array('_id'	=> array('$ne' => $mongoID), 'user_email' => new \MongoRegex('/^' . preg_quote(trim($formData['user_email'])) . '$/i'));
 			$results	= $collection->find($document);
 		}
 		while($results->hasNext())
